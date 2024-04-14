@@ -1,0 +1,141 @@
+@import "article.scss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*pre.ql-syntax{
+    background-color: #00a9ff!important;
+    color:red;
+  }
+  */
+  #articledisplay a {
+    /*text-decoration: dotted #0015ff underline;*/
+    background-color: #00a9ff;
+    color: #ffffff;
+  }
+  
+  h1 {
+    @apply text-3xl;
+    @apply font-bold;
+  }
+  
+  h2 {
+    @apply text-2xl;
+    @apply font-bold;
+  }
+  
+  h3 {
+    @apply text-xl;
+    @apply font-bold;
+  }
+  
+  h4 {
+    @apply text-lg;
+    @apply font-bold;
+  }
+  
+  h5 {
+    @apply text-base;
+    @apply font-bold;
+  }
+  
+  h6 {
+    @apply text-base;
+  }
+  
+  p.ql-align-center, h1.ql-align-center, h2.ql-align-center, h3.ql-align-center, h4.ql-align-center, h5.ql-align-center, h6.ql-align-center {
+    @apply text-center;
+  }
+  
+  p.ql-align-right, h1.ql-align-right, h2.ql-align-right, h3.ql-align-right, h4.ql-align-right, h5.ql-align-right, h6.ql-align-right {
+    @apply text-right;
+  }
+  
+  #articledisplay {
+    position: relative;
+  }
+  
+  #articledisplay blockquote::before {
+    content: "|"; /*❗必须有content选项*//*❕*/
+    font-weight: bolder;
+    color: #bbb;
+    margin-right: 0.62rem;
+    position: relative;
+    left: 0.18rem;
+    
+  }
+  
+  #articledisplay blockquote {
+    background-color: #efefef;
+    border-radius: 5px;
+  }
+  
+  #articledisplay ul > li::before {
+    content: '●';
+    font-size: 0.85rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.25rem;
+    box-sizing: border-box;
+  }
+  
+  #articledisplay ol > li::before {
+    font-size: 1rem;
+    min-width: 1rem;
+    min-height: 1rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.25rem;
+    box-sizing: border-box;
+  }
+  
+  #articledisplay ol > li:nth-child(1)::before {
+    content: '1.';
+    
+  }
+  
+  #articledisplay ol > li:nth-child(2)::before {
+    content: '2.';
+    
+  }
+  
+  #articledisplay ol > li:nth-child(3)::before {
+    content: '3.';
+  }
+  
+  #articledisplay ol > li:nth-child(4)::before {
+    content: '4.';
+  }
+  
+  #articledisplay ol > li:nth-child(5)::before {
+    content: '5.';
+  }
+  
+  #articledisplay ol > li:nth-child(6)::before {
+    content: '6.';
+  }
+  
+  #articledisplay ol > li:nth-child(7)::before {
+    content: '7.';
+  }
+  
+  #articledisplay ol > li:nth-child(8)::before {
+    content: '8.';
+  }
+  
+  #articledisplay ol > li:nth-child(9)::before {
+    content: '9.';
+  }
+  
+  #articledisplay ol > li:nth-child(10)::before {
+    content: '10.';
+  }
+  
+}
+
