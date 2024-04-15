@@ -21,6 +21,11 @@
         addStudentClassId: '',
         addStudentGrade: '',
         addStudentGender: '',
+        //choose
+        studentsChoosen: [],
+        //delete
+        delDialogShow: false,
+        studentToDel: '',
       }
     },
     mounted() {
@@ -96,7 +101,7 @@
               summary: '查询成功',
               life: 1500
             })
-            console.log(res.data.data)
+            // console.log(res.data.data)
             this.students = res.data.data
           } else {
             this.$toast.add({
@@ -117,6 +122,15 @@
         this.name = ''
         this.classId = ''
         this.grade = ''
+      },
+      chooseStudent(student) {
+        // if (this.studentsChoosen.some(item => item.id === student.id)) {
+        //   this.studentsChoosen = this.studentsChoosen.filter(item => item.id !== student.id)
+        // } else {
+        //   this.studentsChoosen.push(student)
+        // }
+        if (this.studentsChoosen.some(i => i.id === student.id)) this.studentsChoosen = []
+        else this.studentsChoosen = [student]
       }
     },
     components: {
@@ -162,8 +176,11 @@
       <div class="pl-2 mt-2 mb-1">
         <span class="font-bold text-2xl mb-3.5 mr-6">管理</span>
         <span class="btn bg-white mr-6 hover:bg-secondary btn-sm px-6 text-lg border-none " @click="addDialogShow=true">新增</span>
-        <span class="btn bg-white mr-6 hover:bg-secondary btn-sm px-6 text-lg border-none ">删除</span>
-        <span class="btn bg-white mr-2 hover:bg-secondary btn-sm px-6 text-lg border-none ">修改</span>
+        <span :class="{'btn-disabled':studentsChoosen.length===0}"
+              class="btn bg-white mr-6 hover:bg-secondary btn-sm px-6 text-lg border-none "
+              @click="delDialogShow=true; studentToDel=studentsChoosen[0]">删除</span>
+        <span :class="{'btn-disabled':studentsChoosen.length===0}"
+              class="btn bg-white mr-2 hover:bg-secondary btn-sm px-6 text-lg border-none ">修改</span>
       </div>
     </div>
     
@@ -182,8 +199,8 @@
       
       <NScrollbar style=" max-height: 380px; width:100%; margin-top:10px; padding: 0.5rem 1rem 1rem ;">
         
-        
-        <div v-for="item in students" class="students flex  cursor-pointer">
+        <div v-for="item in students" :class="{'choosen-item':studentsChoosen.some(i=>i.id===item.id)}"
+             class="students flex  cursor-pointer" @click="chooseStudent(item)">
           <span>{{ item.name }}</span>
           <span>{{ item.id }}</span>
           <span>{{ item.classId }}</span>
@@ -206,7 +223,7 @@
           :style="{ width: '20rem', padding:'0.5rem', 'border-radius':'1rem' }"
           header="新增学生" modal>
     
-    <div class="text-lg mb-4">新增学生信息：</div>
+    <div class="text-lg mb-4 font-bold">新增学生信息</div>
     <div class="add-dialog flex flex-wrap gap-y-3 gap-x-2 ">
       
       <div class="flex justify-between items-center w-[16rem]">
@@ -249,11 +266,51 @@
     </div>
   
   </Dialog>
+  
+  <!--    删除对话框-->
+  <Dialog v-model:visible="delDialogShow"
+          :style="{ width: '16rem', padding:'0.5rem', 'border-radius':'1rem' }"
+          header="删除学生" modal>
+    
+    <div class="text-lg mb-4 font-bold">删除学生信息</div>
+    <div class="add-dialog flex flex-wrap gap-y-3 gap-x-2 ">
+      
+      <div class="flex justify-between items-center w-[16rem]">
+        <span>ID：</span>
+        <text>{{ studentToDel.id }}</text>
+      </div>
+      <div class="flex items-center justify-between w-[16rem]">
+        <span>姓名：</span>
+        <text>{{ studentToDel.name }}</text>
+      </div>
+      <div class="flex items-center justify-between w-[16rem]">
+        <span>性别：</span>
+        <text>{{ studentToDel.gender === 0 ? '女' : '男' }}</text>
+      </div>
+      <div class="flex items-center justify-between w-[16rem]">
+        <span>班级ID：</span>
+        <text>{{ studentToDel.classId }}</text>
+      </div>
+      
+      <div class="flex items-center justify-between w-[16rem]">
+        <span>年级：</span>
+        <text>{{ studentToDel.grade }}</text>
+      </div>
+    
+    </div>
+    
+    <div class="flex justify-between w-full mt-5">
+          <span class="border-none btn btn-sm px-4 bg-[#f5f5f5] hover:bg-secondary"
+                @click="delDialogShow=false">取消</span>
+      <span class="border-none btn btn-sm px-4 bg-[#f5f5f5] hover:bg-error hover:text-white"
+            @click="delStudent">确认删除</span>
+    </div>
+  
+  </Dialog>
 
 </template>
 
 <style lang="scss" scoped>
-  
   
   .query-items {
     position: relative;
@@ -338,5 +395,15 @@
   
   .students:hover {
     background-color: #bbf8ae;
+  }
+  
+  .choosen-item {
+    background-color: #05aeec !important;
+    color: #fff !important;
+    
+    > span {
+      border-color: #fff !important;
+    }
+    
   }
 </style>

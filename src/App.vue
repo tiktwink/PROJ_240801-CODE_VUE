@@ -135,9 +135,9 @@ overflow: hidden;"
 <style lang="scss" scoped>
   
   
-  /*覆盖，左侧抽屉的动画时长：0.3s -> 0.6s*/
+  /* 覆盖，左侧抽屉的动画时长 */
   .drawer-side > *:not(.drawer-overlay) {
-    transition-duration: 0.5s;
+    transition-duration: 0.4s;
   }
   
   .drawer-side {
