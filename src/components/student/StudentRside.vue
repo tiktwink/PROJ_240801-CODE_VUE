@@ -50,8 +50,10 @@
 
 <template>
   <div v-if="studentDetail!==''" class="p-3" @click.prevent.stop="">
-    <div>
+    <div class="relative">
       <p class="font-bold text-lg mb-2">学生信息</p>
+      <span class="absolute right-[-0.25rem] top-[-0.25rem] bg-info text-white btn btn-sm btn-ghost border-none hover:text-black hover:bg-secondary"
+            style="">详情</span>
       <div class="student ">
         <span><text>ID：</text><text>{{ studentDetail.student.id }}</text></span>
         <span><text>姓名：</text><text>{{ studentDetail.student.name }}</text></span>

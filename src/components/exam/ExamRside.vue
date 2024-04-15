@@ -7,7 +7,6 @@
   // import {random} from "nanoid";
   
   export default {
-    
     data() {
       return {
         appStore: useAppStore(),
@@ -62,7 +61,7 @@
 
 <template>
   <div>
-    <div v-if="examChoosen!==''" class="exam-choosen pt-4 pb-2 pl-5 pr-1 flex flex-col gap-y-2">
+    <div v-if="examChoosen!==''" class="exam-choosen pt-4 pb-2 pl-5 pr-1 flex flex-col gap-y-2" @click.prevent.stop="">
       <p>考试详情</p>
       <div><span>考试ID：</span>
         <text>{{ examChoosen.id }}</text>

@@ -10,7 +10,9 @@
 </script>
 
 <template>
-  <div></div>
+  <div>
+    此处：历史管理主界面
+  </div>
 </template>
 
 <style lang="scss" scoped>
