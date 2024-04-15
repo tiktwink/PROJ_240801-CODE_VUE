@@ -131,8 +131,15 @@
         // } else {
         //   this.studentsChoosen.push(student)
         // }
-        if (this.studentsChoosen.some(i => i.id === student.id)) this.studentsChoosen = []
-        else this.studentsChoosen = [student]
+        if (this.studentsChoosen.some(i => i.id === student.id)) {
+          this.studentsChoosen = []
+          //收起右侧栏
+          this.appStore.sideOn = false
+        } else {
+          this.studentsChoosen = [student]
+          this.appStore.sideOn = true
+        }
+        
       },
       delStudent() {
         if (this.studentsChoosen.length === 0) return

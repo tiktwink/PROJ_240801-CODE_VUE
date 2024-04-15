@@ -1,5 +1,14 @@
 <script>
-  export default {}
+  export default {
+    name: "StudentRside",
+    // props: {
+    //   student: {
+    //     type: Object,
+    //     required: false,
+    //     default: null
+    //   }
+    // },
+  }
 </script>
 
 <template>
