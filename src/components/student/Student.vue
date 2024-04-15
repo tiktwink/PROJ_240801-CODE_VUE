@@ -31,7 +31,7 @@
     mounted() {
       //收起、但显示右侧栏
       this.appStore.sideOn = false
-      document.getElementById('rside').style.visibility = 'hidden'
+      document.getElementById('rside').style.visibility = 'visible'
     },
     methods: {
       addStudent() {
@@ -79,7 +79,7 @@
           
         })
       },
-      queryStudent() {
+      queryStudent(i) {
         if (this.id === '' && this.name === '' && this.classId === '' && this.grade === '') {
           this.$toast.add({
             severity: "warn",
@@ -96,11 +96,13 @@
         })
         .then(res => {
           if (res.data.code === 0) {
-            this.$toast.add({
-              severity: "success",
-              summary: '查询成功',
-              life: 1500
-            })
+            if (i !== 0) {
+              this.$toast.add({
+                severity: "success",
+                summary: '查询成功',
+                life: 1500
+              })
+            }
             // console.log(res.data.data)
             this.students = res.data.data
           } else {
@@ -131,6 +133,41 @@
         // }
         if (this.studentsChoosen.some(i => i.id === student.id)) this.studentsChoosen = []
         else this.studentsChoosen = [student]
+      },
+      delStudent() {
+        if (this.studentsChoosen.length === 0) return
+        axios.delete(`/api/student/${this.studentsChoosen[0].id}`, {
+          headers: {
+            username: useUserStore().username,
+            token: useUserStore().token,
+          }
+        })
+        .then(res => {
+          if (res.data.code === 0) {
+            this.$toast.add({
+              severity: 'success',
+              summary: res.data.msg,
+              life: 1250
+            })
+            
+            this.delDialogShow = false
+            this.studentsChoosen = []
+            this.queryStudent(0)
+          } else {
+            this.$toast.add({
+              severity: 'warn',
+              summary: res.data.msg,
+              life: 2500
+            })
+          }
+        })
+        .catch(err => {
+          this.$toast.add({
+            severity: 'error',
+            summary: '异常',
+            life: 5000
+          })
+        })
       }
     },
     components: {
