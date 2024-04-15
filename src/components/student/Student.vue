@@ -3,11 +3,13 @@
   import axios from "axios";
   import useUserStore from "@/stores/useUserStore.js";
   import {NScrollbar} from "naive-ui";
+  import useStudentStore from "@/stores/useStudentStore.js";
   
   export default {
     data() {
       return {
         appStore: useAppStore(),
+        studentStore: useStudentStore(),
         students: [],
         //query
         id: '',
@@ -32,6 +34,11 @@
       //收起、但显示右侧栏
       this.appStore.sideOn = false
       document.getElementById('rside').style.visibility = 'visible'
+    },
+    watch: {
+      studentsChoosen(newValue, oldValue) {
+        this.studentStore.studentsChoosen = newValue
+      }
     },
     methods: {
       addStudent() {
