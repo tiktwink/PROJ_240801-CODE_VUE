@@ -28,6 +28,10 @@
       <div v-else-if="$route.name==='评阅结果'">
         <AiCheckOutRside/>
       </div>
+      
+      <div v-else-if="$route.name==='学生管理'">
+        <StudentRside/>
+      </div>
     
     </div>
     <div class="test-mask" @click="handleMaskTap"></div>
@@ -40,10 +44,11 @@
   import SubjectRside from "@/components/subject/SubjectRside.vue"
   import ExamRside from "@/components/exam/ExamRside.vue";
   import AiCheckOutRside from "@/components/aicheck/AiCheckOutRside.vue";
+  import StudentRside from "@/components/student/StudentRside.vue";
   
   export default {
     
-    components: {AiCheckOutRside, AppTopbar, SubjectRside, ExamRside},
+    components: {StudentRside, AiCheckOutRside, AppTopbar, SubjectRside, ExamRside},
     data() {
       return {
         appStore: useAppStore(), //控制边栏显示，边栏的开关在顶栏中，而边栏在APPLayout中，顶栏AppTopbar和APPLayout之间用仓库通信
