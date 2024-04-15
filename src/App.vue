@@ -132,7 +132,7 @@ overflow: hidden;"
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   
   
   /*覆盖，左侧抽屉的动画时长：0.3s -> 0.6s*/
@@ -194,7 +194,6 @@ overflow: hidden;"
         border-radius: 50%;
         width: 10px;
         height: 10px;
-        //background-color: #000;
       }
     }
   }
