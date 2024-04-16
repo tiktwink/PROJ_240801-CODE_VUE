@@ -17,13 +17,10 @@
 
 <template>
   <div>这里是评阅结果页的边栏
-    
     <div>
       <NScrollbar style="max-height:400px;">
         <div>
-        
         </div>
-      
       </NScrollbar>
     </div>
   </div>

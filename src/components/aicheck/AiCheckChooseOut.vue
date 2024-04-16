@@ -54,10 +54,11 @@
       <text>没有查询到考试信息 ..o_O</text>
     </div>
     <div v-else>
-      <NScrollbar style="min-height:50px; max-height: 318px; padding: 0.8rem 0.9rem ;background-color:#fff; border-radius: 0.5rem; ">
+      <NScrollbar
+          style="min-height:50px; max-height: 318px; padding: 0.55rem 0.6rem ;background-color:#fff; border-radius: 0.65rem; ">
         
         <div v-for="(item, index) in exams" :class="{'choosen-exam': examStore.examsChoosen.some(exam => exam.id===item.id)} "
-             class="exam min-h-[60px] border-none rounded-xl mb-3 bg-[#f0f0f0] cursor-pointer flex flex-wrap items-center text-sm "
+             class="exam min-h-[60px] border-none rounded-lg mb-3 bg-[#f0f0f0] cursor-pointer flex flex-wrap items-center text-sm "
              @click="chooseExam(item)">
           <div><span class="font-bold">考试ID：</span>{{ item.id }}</div>
           <div><span class="font-bold">考试名称：</span>{{ item.name }}</div>

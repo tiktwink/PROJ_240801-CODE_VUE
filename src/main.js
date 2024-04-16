@@ -20,7 +20,7 @@ import Dialog from 'primevue/dialog';
 
 
 //naiveUI组件
-
+import {NScrollbar} from "naive-ui";
 
 // 实例化应用
 const app = createApp(App)
@@ -36,6 +36,7 @@ app.use(TAnchorItem)
 //其它组件
 app.component('QuillEditor', QuillEditor)
 app.component('DividerHorizontal', DividerHorizontal)
+app.component('NScrollbar', NScrollbar)
 
 //primevue插件、组件
 app.use(PrimeVue)

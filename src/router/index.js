@@ -35,9 +35,9 @@ const router = createRouter({
           component: () => import('@/components/exam/Exam.vue')
         },
         {
-          path: '/class',
-          name: '班级管理',
-          component: () => import('@/components/class/Class.vue')
+          path: '/paper',
+          name: '试卷管理',
+          component: () => import('@/components/paper/Paper.vue')
         },
         {
           path: '/teacher',
@@ -56,7 +56,7 @@ const router = createRouter({
         },
         {
           path:'/history',
-          name:'历史管理',
+          name: '日志管理',
           component:()=> import('@/components/history/History.vue')
         }
       ]

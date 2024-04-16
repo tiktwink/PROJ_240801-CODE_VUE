@@ -90,8 +90,9 @@
       <NScrollbar
           style="box-sizing: border-box;background-color:#fff; padding:1rem 1.5rem; border:0 #f00 solid; height:calc(100vh - 8rem); width: calc(100vw - 2rem); margin-left:1rem; border-radius:0.75rem;">
         <p class="text-xl font-bold mb-4 mx-6">本次评阅的各考试信息</p>
-        <div v-for="exam in exams" class="exam px-0 mb-4">
+        <div v-for="(exam,index) in exams" class="exam px-0 mb-4">
           <div class="px-2 flex gap-x-6 text-lg">
+            <span class="bg-accent rounded px-2">{{ index + 1 }}</span>
             <span class="flex items-center"><text class="font-bold">考试ID：</text>{{ exam.id }}</span>
             <span class="flex items-center"><text
                 class="font-bold">考试时间：</text>{{ exam.examTime.slice(0, 19).replace('T', " ") }}</span>
@@ -104,7 +105,9 @@
           </div>
           <p class="text-lg font-bold mx-2 mt-4">该考试的各试卷信息</p>
           <NScrollbar style="max-height: 300px; border-radius:0.5rem; background-color:#fff; padding:1rem 0.5rem;">
-            <div v-for="paper in exam.papers" class="paper mb-2 bg-accent hover:bg-secondary">
+            <div v-for="(paper,paperIndex) in exam.papers"
+                 class="paper cursor-pointer mb-2 bg-accent hover:bg-secondary">
+              <span class="">{{ paperIndex + 1 }}</span>
               <span><text>试卷ID：</text><text>{{ paper.id }}</text></span>
               <span><text>考生ID：</text><text>{{ paper.studentId }}</text></span>
               <span><text>考生姓名：</text><text>{{ paper.studentName }}</text></span>
@@ -123,8 +126,9 @@
     <div v-else-if="mode==='paper'">
       <n-scrollbar
           style="box-sizing: border-box;background-color:#fff; padding:1rem 1.5rem; border:0 #f00 solid; height:calc(100vh - 8rem); width: calc(100vw - 2rem); margin-left:1rem; border-radius:0.75rem;">
-        <div v-for="paper in papers"
+        <div v-for="(paper,index) in papers"
              class="paper-paper cursor-pointer rounded-lg bg-accent hover:bg-secondary py-1.5 pl-4 pr-2 flex justify-between flex-wrap items-center gap-x-4 gap-y-2">
+          <span>{{ index + 1 }}</span>
           <span><text>试卷ID：</text><text>{{ paper.id }}</text></span>
           <span><text>考试ID：</text><text>{{ paper.examId }}</text></span>
           <span><text>考生ID：</text><text>{{ paper.studentId }}</text></span>
@@ -181,6 +185,7 @@
   }
   
   .paper-paper {
+    margin-bottom: 0.75rem;
     > span {
       > text:first-child {
         font-weight: bold;
@@ -194,5 +199,9 @@
     > span:last-child {
       font-weight: normal;
     }
+  }
+  
+  .paper-paper:last-child {
+    margin-bottom: 0;
   }
 </style>

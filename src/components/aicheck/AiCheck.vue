@@ -8,6 +8,7 @@
   import PaperUpload from '@/components/aicheck/PaperUpload.vue';
   import ExamUpload from "@/components/aicheck/ExamUpload.vue";
   import useCheckoutStore from "@/stores/useCheckoutStore.js";
+  import {axiosJson} from "@/apis/axios/axiosJson.js";
   
   export default {
     data() {
@@ -233,38 +234,32 @@
         // console.log(this.examStore.examsChoosen)
         
         //这里是上传评阅的代码
-        const exams = this.examStore.examsChoosen.map(item => item.id)
+        const exams = this.examStore.examsChoosen.map(item => {
+          return {
+            id: item.id
+          }
+        })
         // console.log(exams)
-        let count = 0
-        exams.forEach(item => {
-          axios.post(`/api/check/exam-single/${item}`, {}, {
-            headers: {
-              username: useUserStore().username,
-              token: useUserStore().token
-            }
-          })
-          .then(res => {
-            if (res.data.code === 0) {
-              count = count + 1
-              if (count === exams.length) {
-                this.$toast.add({
-                  severity: 'success',
-                  summary: '评阅完成',
-                  life: 1500
-                })
-                
-                // 评阅完成后前往结果页
-                // this.$router.push(`/checkout?countExam=${this.examStore.examsChoosen.length}&countPaper=${this.examStore.examsChoosen.reduce((sum,item)=>sum+item.num,0)}`)
-                setTimeout(() => {
-                  useCheckoutStore().mode = 'exam'
-                  useCheckoutStore().exams = this.examStore.examsChoosen.slice()
-                  useCheckoutStore().papers = []
-                  this.$router.push('/checkoutresult?mode=exam')
-                }, 500)
-                
-              }
-            }
-          })
+        axiosJson.post('/api/check/exam', {
+          mode: 'exam',
+          operatorId: '1001',
+          auditorId: '1001',
+          examsTocheck: exams,
+        })
+        .then(res => {
+          if (res.data.code === 0) {
+            this.$toast.add({
+              severity: 'success',
+              summary: '评阅成功',
+              life: 1500
+            })
+            setTimeout(() => {
+              useCheckoutStore().mode = 'exam'
+              useCheckoutStore().exams = this.examStore.examsChoosen.slice()
+              useCheckoutStore().papers = []
+              this.$router.push('/checkoutresult?mode=exam')
+            }, 500)
+          }
         })
         
         
@@ -273,7 +268,7 @@
       //****阅试卷
       queryCheckPaper() {
         this.papers = []
-        this.papersChoosen = []
+        // this.papersChoosen = [] //不要清空，从而实现提交多份试卷批阅！
         if (this.checkPaperId === '' && this.checkPaperExamId === '' && this.checkPaperStudentId === '' && this.checkPaperStudentName === '') {
           this.$toast.add({
             severity: 'warn',
@@ -536,6 +531,7 @@
         <div class="item-tip">本学期：...</div>
         <div class="item-tip">总计：...</div>
       </div>
+      
       <!--阅考试-->
       <div id="item1" :class="{'keepitem':keepitem===1}" class="item item-1 relative flex-auto "
            style="border-right:10px #ffffff solid;"
@@ -638,6 +634,7 @@
         </div>
       
       </div>
+      
       <!--阅试卷-->
       <div id="item2" :class="{'keepitem':keepitem===2}" class="item item-2 relative flex-auto "
            style="border-right:10px #fff solid; "
@@ -680,13 +677,16 @@
           </div>
           <!--查询结果-->
           <div v-show="hadQueryCheckPaper" class="paper-choose-out relative pt-0.5">
-            <p class="font-bold mt-2 mb-3 text-lg">查询结果<text class="text-base text-info">(共{{papers.length}}条)</text></p>
+            <p class="font-bold mt-2 mb-3 text-lg">查询结果
+              <text class="text-base text-info">(共{{ papers.length }}条)</text>
+            </p>
             <div v-show="this.papers.length===0 " class="flex justify-center items-center text-lg text-red-500">
               未查询到数据 ...o_O
             </div>
             <div v-show="this.papers.length>0" class="pr-3 absolute top-1 right-0 flex gap-x-2 border-none">
-               <span v-show="papersChoosen.length>0" class="btn btn-sm bg-white hover:bg-secondary border-none"
-                     :class="{'choosen-text-info':papersChoosen.length>0}" @click="submitCheckPapers">提交阅卷({{papersChoosen.length}})
+               <span v-show="papersChoosen.length>0" :class="{'choosen-text-info':papersChoosen.length>0}"
+                     class="btn btn-sm bg-white hover:bg-secondary border-none"
+                     @click="submitCheckPapers">提交阅卷({{ papersChoosen.length }})
               </span>
               
               <span class="btn btn-sm bg-white hover:bg-secondary border-none" @click="papersChoosen=[]">取消已选</span>
@@ -729,6 +729,7 @@
           </div>
         </div>
       </div>
+      
       <!--导入答卷-->
       <div id="item4" :class="{'keepitem':keepitem===4}" class="item item-4 relative flex-auto " style=""
            @mouseover="setkeepitem(4)">
@@ -800,11 +801,13 @@
                  class="flex flex-col pt-2 pl-4  justify-between  rounded-lg bg-white "
                  style="margin-top:20px;">
               <p class="font-bold text-lg mb-2.5 my-0">试卷信息</p>
-              <div class=" flex flex-wrap gap-x-4 gap-y-1.5">
+              <div class=" flex flex-wrap gap-x-4 pl-2 text-sm gap-y-1.5">
                 <span><text class="font-bold">试卷ID：</text>{{ importPaper.id }}</span>
                 <span><text class="font-bold">考试ID：</text>{{ importPaper.examId }}</span>
                 <span><text class="font-bold">学生ID：</text>{{ importPaper.studentId }}</span>
-                <span class="font-bold"><text>是否上传过试卷：</text>{{ importPaper.hasUrl === 1 ? '是' : '否' }}</span>
+                <span class="font-bold"><text>是否上传过试卷：</text><text :class="{'text-red':importPaper.hasUrl===0}">{{
+                    importPaper.hasUrl === 1 ? '是' : '否'
+                  }}</text></span>
                 <span v-if="importPaper.hasUrl===1"><text class="font-bold">答卷地址：</text>
                   <a :class="{'cursor-not-allowed':importPaper.url===null || importPaper.url===''}"
                      :href="'http://'+importPaper.url"
@@ -1041,15 +1044,15 @@
     color: #f00 !important;
   }
   
-  .choosen-text-info{
+  .choosen-text-info {
     background-color: #05aeec;
-    color:#fff;
+    color: #fff;
     
   }
   
-  .choosen-text-info:hover{
-    background-color:#bbf8ae;
-    color:#000;
+  .choosen-text-info:hover {
+    background-color: #bbf8ae;
+    color: #000;
   }
   
   .item-2 {
@@ -1068,7 +1071,7 @@
     position: absolute;
     right: 1rem;
     top: 1rem;
-    cursor:pointer;
+    cursor: pointer;
     //background-color: #f00;
   }
 </style>
