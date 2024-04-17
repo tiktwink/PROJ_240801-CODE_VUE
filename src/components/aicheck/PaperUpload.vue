@@ -40,6 +40,7 @@
   import axios from "axios";
   import {ElButton, ElUpload} from "element-plus";
   import useUserStore from "@/stores/useUserStore.js";
+  import useAppStore from "@/stores/useAppStore.js";
   
   export default {
     props: {
@@ -81,11 +82,11 @@
         }, 1000)
       },
       picUpload(f) {
-        console.log('picUpload')
+        // console.log('picUpload')
         let params = new FormData()
         //注意在这里一个坑f.file
         params.append("file", f.file);
-        console.log(this.paperId)
+        // console.log(this.paperId)
         axios({
           method: 'post',
           url: `/api/paper/singleupload/${this.paperId}`,
@@ -105,6 +106,7 @@
               life: 1500
             })
             // this.imageUrl = resp.data.data;
+            useAppStore().paperfilleduploaddone = true //在试卷管理中已监控该值变化，及时让其知道上传成功
             this.resList.push(resp.data.data)
           } else {
             this.$toast.add({

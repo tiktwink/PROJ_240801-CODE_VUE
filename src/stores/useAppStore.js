@@ -12,15 +12,18 @@ const useAppStore = defineStore('appstore', {
     return {
       title: '首页',
       drawerOn: false, //控制左侧抽屉显示
-      sideOn: false, //右侧边栏显示
-      // sideOn: screen.width >= 992, //宽屏默认展示右侧边栏
+      
       narrowScreen: screen.width <= 991, //窄屏要默认关闭右侧边栏，且边栏即使展开也要用层叠模式
-      //在隐藏AppTopbar的时候，顶部控制条的样式(3表示彩虹风格，2表示简约风格，1表示提示符,0表示透明)
-      apptopbarControl: 1,
+      
+      apptopbarControl: 1,//在隐藏AppTopbar的时候，顶部控制条的样式(3表示彩虹风格，2表示简约风格，1表示提示符,0表示透明)
       count: 0,
       editorText: '',
-      // systemDarkmode: usePreferredColorScheme(),
-      selectedDark: false,
+      selectedDark: false,// systemDarkmode: usePreferredColorScheme(),
+      
+      sideOn: false, //右侧边栏显示, 若替换为sideOn: screen.width >= 992,表示宽屏默认展示右侧边栏
+      sidePart: '', //不持久化，用于在确定了路由之后，进一步确定右侧栏的组件内容（在当前界面右侧栏可能根据不同条件展示不同内容）
+      sidePaperId: '',
+      paperfilleduploaddone: false, //每次将要上传答卷前将该标记置为false，每次上传后变为true
       
       //阅卷
       choosenExams: [],
