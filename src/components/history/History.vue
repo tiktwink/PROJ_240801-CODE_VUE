@@ -38,6 +38,7 @@
           if (res.data.code === 0) {
             console.log(res.data.data)
             this.checkLog = res.data.data
+            this.checkLog.reverse() //时间最近
           }
         })
       },

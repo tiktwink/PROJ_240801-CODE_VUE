@@ -28,13 +28,15 @@
 </script>
 
 <template>
-  <div>此处：阅卷日志
-    
-    <div class="p-2 bg-accent rounded-lg">
+  <div>
+    <div class="flex gap-x-4 items-center pt-2 pl-2">
+      <p class="text-lg font-bold">阅卷日志</p>
+      <p class="text-sm">共{{ checkLog.length }}条记录</p>
+    </div>
+    <div class="px-2 bg-accent rounded-lg">
       <NScrollbar style="max-height:calc(100vh - 80px - 5.25rem); padding-bottom:0.25rem; border:0 solid #ccc;">
         
         <div class="log-wrapper flex border-none py-4 relative">
-          
           <div class="board-left w-[50%] border-box" style="border-right:1px #ccc solid;">
             <div v-for="(check,index) in checkLog" v-show="index%2===0" class="log-item relative">
               <span class="relative top-0.5 left-0.5 bg-info text-white"
@@ -112,7 +114,6 @@
             </n-radio-group>
           </div>
         </div>
-      
       
       </NScrollbar>
     
