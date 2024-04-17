@@ -20,7 +20,7 @@
       },
     },
     mounted() {
-      console.log()
+    
     },
     watch: {
       imgWidth(newValue, oldValue) {
