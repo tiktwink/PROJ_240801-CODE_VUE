@@ -1,6 +1,6 @@
 <script>
   export default {
-    name: "PaperBase",
+    name: "PaperEmpty",
   }
 </script>
 
