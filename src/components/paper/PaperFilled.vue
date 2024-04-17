@@ -20,7 +20,7 @@
       },
     },
     mounted() {
-      // axiosJson.get('/api/'+this.paper.url.slice())
+      console.log()
     },
     watch: {
       imgWidth(newValue, oldValue) {
