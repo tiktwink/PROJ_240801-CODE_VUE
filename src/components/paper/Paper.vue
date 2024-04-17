@@ -202,9 +202,11 @@
           </div>
         </div>
         
-        <p class="text-lg font-bold pl-2 mt-4 mb-3">查询结果
+        <p class="text-lg font-bold pl-2 mt-4 mb-3 ">查询结果
           <span v-if="papers.length>0"
-                class="text-sm font-normal bg-info text-white rounded px-1.5 py-0.5">共{{ papers.length }}条记录</span>
+                class="text-sm font-normal bg-info text-white rounded ml-1 px-1.5 py-0.5">共{{
+              papers.length
+            }}条记录</span>
           <span v-if="turnQueryPaper && papers.length===0" class="text-sm font-normal px-1.5 py-0.5  ">
             <span class="text-red-500">未查询到数据...o_O</span>
           </span>
