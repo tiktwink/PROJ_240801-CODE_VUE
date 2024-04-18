@@ -42,9 +42,9 @@ const useAppStore = defineStore('appstore', {
     toggleSideOn() {
       this.sideOn = !this.sideOn // action访问仓库数据是this.数据名，action器可访问this，指向仓库
     },
-    
-    
   },
+  
+  
 })
 
 export default useAppStore //默认导出(导入时不必解构，且导入名随意)

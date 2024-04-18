@@ -9,10 +9,10 @@
   
   export default {
     name: 'Paper',
-    
     components: {
       PaperEmpty, PaperFilled, PaperRefer, PaperDetail, NRadioGroup, NRadio, NSwitch
     },
+    
     data() {
       return {
         appStore: useAppStore(),
@@ -30,14 +30,25 @@
         paperScan: '',
       }
     },
+    
     mounted() {
       this.appStore.sideOn = false
       document.getElementById('rside').style.visibility = 'visible';
     },
     
+    unmounted() {
+      this.appStore.sideOn = false
+      this.appStore.sidePart = ''
+      this.appStore.sidePaperId = ''
+      this.appStore.paperfilleduploaddone = false
+    },
+    
     watch: {
       paperType(newValue, oldValue) {
         this.papers = []
+        this.paperScan = ''
+        this.turnScanPaper = false
+        this.turnQueryPaper = false
       }
     },
     
@@ -48,7 +59,6 @@
         this.turnQueryPaper = true
         // this.turnScanPaper = false
         if (this.paperType === '答卷') {
-          console.log('dajuan')
           axiosJson.get(`/api/paper/indexs?id=${this.paperId}&examId=${this.examId}&examName=${this.examName}&studentId=${this.studentId}&studentName=${this.studentName}`)
           .then(response => {
             if (response.data.code === 0) {
@@ -56,10 +66,12 @@
               this.papers = response.data.data
             } else {
               this.papers = []
+              this.paperScan = ''
             }
           })
           .catch(err => {
             this.papers = []
+            this.paperScan = ''
           })
         }
         
