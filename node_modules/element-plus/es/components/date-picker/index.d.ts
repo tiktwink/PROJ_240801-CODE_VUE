@@ -1,6 +1,8 @@
 import type { SFCWithInstall } from 'element-plus/es/utils';
 declare const _DatePicker: SFCWithInstall<import("vue").DefineComponent<{
     readonly type: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType) | ((new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType))[], unknown, unknown, "date", boolean>;
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -87,6 +89,8 @@ declare const _DatePicker: SFCWithInstall<import("vue").DefineComponent<{
     readonly isRange: BooleanConstructor;
 }, () => JSX.Element, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     readonly type: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType) | ((new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType))[], unknown, unknown, "date", boolean>;
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -187,6 +191,7 @@ declare const _DatePicker: SFCWithInstall<import("vue").DefineComponent<{
     readonly prefixIcon: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) | ((new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>))[], unknown, unknown>;
     readonly tabindex: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>;
     readonly validateEvent: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropMergeType<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown>;
     readonly editable: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
     readonly rangeSeparator: string;
     readonly shortcuts: unknown[];
@@ -197,6 +202,8 @@ declare const _DatePicker: SFCWithInstall<import("vue").DefineComponent<{
 export default _DatePicker;
 export declare const ElDatePicker: SFCWithInstall<import("vue").DefineComponent<{
     readonly type: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType) | ((new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType))[], unknown, unknown, "date", boolean>;
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -283,6 +290,8 @@ export declare const ElDatePicker: SFCWithInstall<import("vue").DefineComponent<
     readonly isRange: BooleanConstructor;
 }, () => JSX.Element, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, "update:modelValue"[], "update:modelValue", import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
     readonly type: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType) | ((new (...args: any[]) => import("./src/date-picker.type").IDatePickerType & {}) | (() => import("./src/date-picker.type").IDatePickerType))[], unknown, unknown, "date", boolean>;
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -383,6 +392,7 @@ export declare const ElDatePicker: SFCWithInstall<import("vue").DefineComponent<
     readonly prefixIcon: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) | ((new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>))[], unknown, unknown>;
     readonly tabindex: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>;
     readonly validateEvent: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropMergeType<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown>;
     readonly editable: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
     readonly rangeSeparator: string;
     readonly shortcuts: unknown[];

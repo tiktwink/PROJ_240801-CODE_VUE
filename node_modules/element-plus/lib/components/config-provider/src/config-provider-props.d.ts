@@ -4,6 +4,8 @@ import type { ButtonConfigContext } from 'element-plus/es/components/button';
 import type { MessageConfigContext } from 'element-plus/es/components/message';
 export declare type ExperimentalFeatures = {};
 export declare const configProviderProps: {
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly a11y: import("element-plus/es/utils").EpPropFinalized<BooleanConstructor, unknown, unknown, true, boolean>;
     readonly locale: {
         readonly type: import("vue").PropType<Language>;

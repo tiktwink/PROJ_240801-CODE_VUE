@@ -1,6 +1,8 @@
 import type TimeSelect from './time-select.vue';
 import type { Component, ExtractPropTypes, PropType } from 'vue';
 export declare const timeSelectProps: {
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly format: import("element-plus/es/utils").EpPropFinalized<StringConstructor, unknown, unknown, "HH:mm", boolean>;
     readonly modelValue: StringConstructor;
     readonly disabled: BooleanConstructor;

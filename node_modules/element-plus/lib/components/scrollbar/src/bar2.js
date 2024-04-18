@@ -4,7 +4,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var vue = require('vue');
 var util = require('./util.js');
-var thumb = require('./thumb2.js');
+var thumb = require('./thumb.js');
 var bar = require('./bar.js');
 var constants = require('./constants.js');
 var pluginVue_exportHelper = require('../../../_virtual/plugin-vue_export-helper.js');

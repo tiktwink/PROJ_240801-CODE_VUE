@@ -68,9 +68,20 @@
               this.papers = []
               this.paperScan = ''
             }
-          })
-          .catch(err => {
+          }).catch(err => {
             this.papers = []
+            this.paperScan = ''
+          })
+        } else if (this.paperType === '答案' || this.paperType === '底卷') {
+          axiosJson.get(`/api/exam/indexs?id=${this.examId}&name=${this.examName}`).then(res => {
+            if (res.data.code === 0) {
+              this.papers = res.data.data
+            } else {
+              this.papers = []
+              this.paperScan = ''
+            }
+          }).catch(err => {
+            this.papers = [];
             this.paperScan = ''
           })
         }
@@ -224,7 +235,8 @@
           </span>
         </p>
         <div class="paper-wrapper p-1 rounded-lg bg-white">
-          <NScrollbar style="max-height: 196px; min-height:196px; border:0 #ccc solid;">
+          <NScrollbar :class="{'max-h-[196px]':paperType==='答卷','max-h-[283px]':paperType!=='答卷'}"
+                      style=" min-height:196px; border:0 #ccc solid;">
             <div v-if="paperType==='答卷'">
               <div v-for="(paper,index) in papers" class="paper-brief ">
                 <div :class="{'paper-choosen':paper.id===paperScan.id}"
@@ -234,17 +246,45 @@
                       index + 1
                     }}</span>
                   <span>答卷ID：{{ paper.id }}</span>
-                  <span>学生ID：{{ paper.studentId }}</span>
-                  <span>考试ID：{{ paper.examId }}</span>
+                  <span>所属学生ID：{{ paper.studentId }}</span>
+                  <span>所属考试ID：{{ paper.examId }}</span>
                   <span>已阅：{{ paper.checked === 0 ? '否' : '是' }}</span>
                 </div>
               </div>
             </div>
             <div v-else-if="paperType==='底卷'">
-              <div></div>
+              <div v-for="(exam,index) in papers" class="paper-brief ">
+                <div :class="{'paper-choosen':exam.id===paperScan.id}"
+                     class=" flex gap-y-1 gap-x-3 flex-wrap px-1.5 py-0.5 rounded" @click="scanPaper(exam)">
+                  <span class="relative top-0.5 left-0.5 bg-info text-white text-xs"
+                        style="width:1rem; height:1rem; cursor:default; border-radius:50%; display:flex;justify-content:center; align-items:center;">{{
+                      index + 1
+                    }}</span>
+                  <span>所属考试ID：{{ exam.id }}</span>
+                  <span>所属考试名称：{{ exam.name }}</span>
+                  <span>相关试卷数：{{ exam.num }}</span>
+                  <span>已导入试卷数：{{ exam.countHasUrl }}</span>
+                  <span>缺考人数：{{ exam.countUntested }}</span>
+                  <span>未阅试卷数：{{ exam.countUnchecked }}</span>
+                </div>
+              </div>
             </div>
             <div v-else-if="paperType==='答案'">
-              <div></div>
+              <div v-for="(exam,index) in papers" class="paper-brief ">
+                <div :class="{'paper-choosen':exam.id===paperScan.id}"
+                     class=" flex gap-y-1 gap-x-3 flex-wrap px-1.5 py-0.5 rounded" @click="scanPaper(exam)">
+                  <span class="relative top-0.5 left-0.5 bg-info text-white text-xs"
+                        style="width:1rem; height:1rem; cursor:default; border-radius:50%; display:flex;justify-content:center; align-items:center;">{{
+                      index + 1
+                    }}</span>
+                  <span>所属考试ID：{{ exam.id }}</span>
+                  <span>所属考试名称：{{ exam.name }}</span>
+                  <span>相关试卷数：{{ exam.num }}</span>
+                  <span>已导入试卷数：{{ exam.countHasUrl }}</span>
+                  <span>缺考人数：{{ exam.countUntested }}</span>
+                  <span>未阅试卷数：{{ exam.countUnchecked }}</span>
+                </div>
+              </div>
             </div>
           </NScrollbar>
         </div>
@@ -262,7 +302,6 @@
       </div>
     
     </div>
-  
   
   </div>
 </template>

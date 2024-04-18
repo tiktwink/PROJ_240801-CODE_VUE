@@ -1,6 +1,6 @@
 import { defineComponent, inject, ref, openBlock, createElementBlock, Fragment, createVNode } from 'vue';
 import { GAP } from './util.mjs';
-import Thumb from './thumb2.mjs';
+import Thumb from './thumb.mjs';
 import { barProps } from './bar.mjs';
 import { scrollbarContextKey } from './constants.mjs';
 import _export_sfc from '../../../_virtual/plugin-vue_export-helper.mjs';

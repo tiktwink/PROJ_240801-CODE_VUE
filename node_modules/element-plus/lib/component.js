@@ -76,6 +76,7 @@ var index$16 = require('./components/upload/index.js');
 var index$17 = require('./components/watermark/index.js');
 var index$18 = require('./components/tour/index.js');
 var index$19 = require('./components/anchor/index.js');
+var index$1a = require('./components/segmented/index.js');
 
 var Components = [
   index.ElAffix,
@@ -180,7 +181,8 @@ var Components = [
   index$18.ElTour,
   index$18.ElTourStep,
   index$19.ElAnchor,
-  index$19.ElAnchorLink
+  index$19.ElAnchorLink,
+  index$1a.ElSegmented
 ];
 
 exports["default"] = Components;

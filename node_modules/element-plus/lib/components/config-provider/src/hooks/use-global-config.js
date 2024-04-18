@@ -79,11 +79,10 @@ const provideGlobalConfig = (config, app, global = false) => {
   return context;
 };
 const mergeConfig = (a, b) => {
-  var _a;
   const keys = [.../* @__PURE__ */ new Set([...objects.keysOf(a), ...objects.keysOf(b)])];
   const obj = {};
   for (const key of keys) {
-    obj[key] = (_a = b[key]) != null ? _a : a[key];
+    obj[key] = b[key] !== void 0 ? b[key] : a[key];
   }
   return obj;
 };

@@ -1,8 +1,10 @@
-import { ref, toRef, shallowRef, computed, unref, watch } from 'vue';
+import { ref, toRef, getCurrentInstance, shallowRef, computed, unref, watch } from 'vue';
 import '../../../utils/index.mjs';
+import '../../../hooks/index.mjs';
 import './composables/index.mjs';
 import { useColumns } from './composables/use-columns.mjs';
 import { useScrollbar } from './composables/use-scrollbar.mjs';
+import { useNamespace } from '../../../hooks/use-namespace/index.mjs';
 import { useRow } from './composables/use-row.mjs';
 import { useData } from './composables/use-data.mjs';
 import { useStyles } from './composables/use-styles.mjs';
@@ -36,9 +38,11 @@ function useTable(props) {
     rightTableRef,
     onMaybeEndReached
   });
+  const ns = useNamespace("table-v2");
+  const instance = getCurrentInstance();
+  const isScrolling = shallowRef(false);
   const {
     expandedRowKeys,
-    hoveringRowKey,
     lastRenderedRowIndex,
     isDynamic,
     isResetting,
@@ -51,7 +55,10 @@ function useTable(props) {
   } = useRow(props, {
     mainTableRef,
     leftTableRef,
-    rightTableRef
+    rightTableRef,
+    tableInstance: instance,
+    ns,
+    isScrolling
   });
   const { data, depthMap } = useData(props, {
     expandedRowKeys,
@@ -77,7 +84,6 @@ function useTable(props) {
     fixedColumnsOnLeft,
     fixedColumnsOnRight
   });
-  const isScrolling = shallowRef(false);
   const containerRef = ref();
   const showEmpty = computed(() => {
     const noData = unref(data).length === 0;
@@ -113,7 +119,6 @@ function useTable(props) {
     isDynamic,
     isResetting,
     isScrolling,
-    hoveringRowKey,
     hasFixedColumns,
     columnsStyles,
     columnsTotalWidth,

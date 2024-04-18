@@ -3,6 +3,7 @@ import { Clock, CircleClose } from '@element-plus/icons-vue';
 import '../../../hooks/index.mjs';
 import { buildProps, definePropType } from '../../../utils/vue/props/runtime.mjs';
 import { useSizeProp } from '../../../hooks/use-size/index.mjs';
+import { useEmptyValuesProps } from '../../../hooks/use-empty-values/index.mjs';
 
 const timeSelectProps = buildProps({
   format: {
@@ -47,7 +48,8 @@ const timeSelectProps = buildProps({
   clearIcon: {
     type: definePropType([String, Object]),
     default: () => CircleClose
-  }
+  },
+  ...useEmptyValuesProps
 });
 
 export { timeSelectProps };

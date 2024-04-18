@@ -21,7 +21,6 @@ const RowRenderer = (props, {
     expandedRowKeys,
     estimatedRowHeight,
     hasFixedColumns,
-    hoveringRowKey,
     rowData,
     rowIndex,
     style,
@@ -51,7 +50,6 @@ const RowRenderer = (props, {
   const kls = [ns.e("row"), rowKls, {
     [ns.e(`row-depth-${depth}`)]: canExpand && rowIndex >= 0,
     [ns.is("expanded")]: canExpand && expandedRowKeys.includes(_rowKey),
-    [ns.is("hovered")]: !isScrolling && _rowKey === hoveringRowKey,
     [ns.is("fixed")]: !depth && isFixedRow,
     [ns.is("customized")]: Boolean(slots.row)
   }];
@@ -71,9 +69,29 @@ const RowRenderer = (props, {
     rowEventHandlers,
     style
   };
+  const handlerMosueEnter = (e) => {
+    onRowHover == null ? void 0 : onRowHover({
+      hovered: true,
+      rowKey: _rowKey,
+      event: e,
+      rowData,
+      rowIndex
+    });
+  };
+  const handlerMouseLeave = (e) => {
+    onRowHover == null ? void 0 : onRowHover({
+      hovered: false,
+      rowKey: _rowKey,
+      event: e,
+      rowData,
+      rowIndex
+    });
+  };
   return vue.createVNode(row["default"], vue.mergeProps(_rowProps, {
-    "onRowHover": onRowHover,
-    "onRowExpand": onRowExpanded
+    "onRowExpand": onRowExpanded,
+    "onMouseenter": handlerMosueEnter,
+    "onMouseleave": handlerMouseLeave,
+    "rowkey": _rowKey
   }), _isSlot(slots) ? slots : {
     default: () => [slots]
   });

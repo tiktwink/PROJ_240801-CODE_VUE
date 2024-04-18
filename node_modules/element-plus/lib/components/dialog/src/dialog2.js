@@ -6,7 +6,7 @@ var vue = require('vue');
 var index$3 = require('../../overlay/index.js');
 require('../../../hooks/index.js');
 require('../../focus-trap/index.js');
-var dialogContent = require('./dialog-content.js');
+var dialogContent = require('./dialog-content2.js');
 var constants = require('./constants.js');
 var dialog = require('./dialog.js');
 var useDialog = require('./use-dialog.js');

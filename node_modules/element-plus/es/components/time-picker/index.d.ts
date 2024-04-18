@@ -9,6 +9,8 @@ declare const _TimePicker: SFCWithInstall<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    emptyValues: ArrayConstructor;
+    valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -98,6 +100,8 @@ declare const _TimePicker: SFCWithInstall<import("vue").DefineComponent<{
         type: BooleanConstructor;
         default: boolean;
     };
+    emptyValues: ArrayConstructor;
+    valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -198,6 +202,7 @@ declare const _TimePicker: SFCWithInstall<import("vue").DefineComponent<{
     prefixIcon: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) | ((new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>))[], unknown, unknown>;
     tabindex: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>;
     validateEvent: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
+    valueOnClear: import("element-plus/es/utils").EpPropMergeType<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown>;
     editable: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
     rangeSeparator: string;
     shortcuts: unknown[];
@@ -212,6 +217,8 @@ export declare const ElTimePicker: SFCWithInstall<import("vue").DefineComponent<
         type: BooleanConstructor;
         default: boolean;
     };
+    emptyValues: ArrayConstructor;
+    valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -301,6 +308,8 @@ export declare const ElTimePicker: SFCWithInstall<import("vue").DefineComponent<
         type: BooleanConstructor;
         default: boolean;
     };
+    emptyValues: ArrayConstructor;
+    valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
@@ -401,6 +410,7 @@ export declare const ElTimePicker: SFCWithInstall<import("vue").DefineComponent<
     prefixIcon: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) | ((new (...args: any[]) => (string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | import("vue").Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>))[], unknown, unknown>;
     tabindex: import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>;
     validateEvent: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
+    valueOnClear: import("element-plus/es/utils").EpPropMergeType<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown>;
     editable: import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>;
     rangeSeparator: string;
     shortcuts: unknown[];

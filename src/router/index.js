@@ -37,6 +37,9 @@ const router = createRouter({
         {
           path: '/paper',
           name: '试卷管理',
+          meta: {
+            keepAlive: true, //需要缓存
+          },
           component: () => import('@/components/paper/Paper.vue')
         },
         {

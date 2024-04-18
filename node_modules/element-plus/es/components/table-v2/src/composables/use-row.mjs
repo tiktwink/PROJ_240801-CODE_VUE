@@ -4,11 +4,17 @@ import '../../../../utils/index.mjs';
 import { FixedDir } from '../constants.mjs';
 import { isNumber } from '../../../../utils/types.mjs';
 
-const useRow = (props, { mainTableRef, leftTableRef, rightTableRef }) => {
+const useRow = (props, {
+  mainTableRef,
+  leftTableRef,
+  rightTableRef,
+  tableInstance,
+  ns,
+  isScrolling
+}) => {
   const vm = getCurrentInstance();
   const { emit } = vm;
   const isResetting = shallowRef(false);
-  const hoveringRowKey = shallowRef(null);
   const expandedRowKeys = ref(props.defaultExpandedRowKeys || []);
   const lastRenderedRowIndex = ref(-1);
   const resetIndex = shallowRef(null);
@@ -26,7 +32,18 @@ const useRow = (props, { mainTableRef, leftTableRef, rightTableRef }) => {
     }
   }
   function onRowHovered({ hovered, rowKey }) {
-    hoveringRowKey.value = hovered ? rowKey : null;
+    if (isScrolling.value) {
+      return;
+    }
+    const tableRoot = tableInstance.vnode.el;
+    const rows = tableRoot.querySelectorAll(`[rowkey=${rowKey}]`);
+    rows.forEach((row) => {
+      if (hovered) {
+        row.classList.add(ns.is("hovered"));
+      } else {
+        row.classList.remove(ns.is("hovered"));
+      }
+    });
   }
   function onRowExpanded({
     expanded,
@@ -104,7 +121,6 @@ const useRow = (props, { mainTableRef, leftTableRef, rightTableRef }) => {
     }
   }
   return {
-    hoveringRowKey,
     expandedRowKeys,
     lastRenderedRowIndex,
     isDynamic,

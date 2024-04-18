@@ -11,22 +11,18 @@ export declare type GetDisabledHours = (role: string, comparingDate?: Dayjs) => 
 export declare type GetDisabledMinutes = (hour: number, role: string, comparingDate?: Dayjs) => number[];
 export declare type GetDisabledSeconds = (hour: number, minute: number, role: string, comparingDate?: Dayjs) => number[];
 export declare const timePickerDefaultProps: {
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly cellClassName: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly shortcuts: import("element-plus/es/utils").EpPropFinalized<ArrayConstructor, unknown, unknown, () => never[], boolean>;
@@ -39,36 +35,24 @@ export declare const timePickerDefaultProps: {
         readonly type: import("vue").PropType<import("../props/shared").GetDisabledHours>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly disabledMinutes: {
         readonly type: import("vue").PropType<import("../props/shared").GetDisabledMinutes>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly disabledSeconds: {
         readonly type: import("vue").PropType<import("../props/shared").GetDisabledSeconds>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly id: {
         readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => SingleOrRange<string> & {}) | (() => SingleOrRange<string>) | ((new (...args: any[]) => SingleOrRange<string> & {}) | (() => SingleOrRange<string>))[], unknown, unknown>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly name: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => SingleOrRange<string> & {}) | (() => SingleOrRange<string>) | ((new (...args: any[]) => SingleOrRange<string> & {}) | (() => SingleOrRange<string>))[], unknown, unknown, "", boolean>;
@@ -83,9 +67,6 @@ export declare const timePickerDefaultProps: {
         readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) | ((new (...args: any[]) => (string | Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>) & {}) | (() => string | Component<any, any, any, import("vue").ComputedOptions, import("vue").MethodOptions>))[], unknown, unknown>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly editable: import("element-plus/es/utils").EpPropFinalized<BooleanConstructor, unknown, unknown, true, boolean>;
@@ -94,9 +75,6 @@ export declare const timePickerDefaultProps: {
         readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly readonly: BooleanConstructor;
@@ -111,18 +89,12 @@ export declare const timePickerDefaultProps: {
         readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => Date | [Date, Date]) | (() => SingleOrRange<Date>) | ((new (...args: any[]) => Date | [Date, Date]) | (() => SingleOrRange<Date>))[], unknown, unknown>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly defaultTime: {
         readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => Date | [Date, Date]) | (() => SingleOrRange<Date>) | ((new (...args: any[]) => Date | [Date, Date]) | (() => SingleOrRange<Date>))[], unknown, unknown>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
-        /**
-         * @description range separator
-         */
         __epPropKey: true;
     };
     readonly isRange: BooleanConstructor;

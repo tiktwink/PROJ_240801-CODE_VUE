@@ -72,6 +72,7 @@ import { ElUpload } from './components/upload/index.mjs';
 import { ElWatermark } from './components/watermark/index.mjs';
 import { ElTour, ElTourStep } from './components/tour/index.mjs';
 import { ElAnchor, ElAnchorLink } from './components/anchor/index.mjs';
+import { ElSegmented } from './components/segmented/index.mjs';
 
 var Components = [
   ElAffix,
@@ -176,7 +177,8 @@ var Components = [
   ElTour,
   ElTourStep,
   ElAnchor,
-  ElAnchorLink
+  ElAnchorLink,
+  ElSegmented
 ];
 
 export { Components as default };

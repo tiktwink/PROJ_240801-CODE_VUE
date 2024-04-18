@@ -2,6 +2,8 @@ import type { ExtractPropTypes } from 'vue';
 import type { IDatePickerType } from '../date-picker.type';
 export declare const datePickerProps: {
     readonly type: import("element-plus/es/utils").EpPropFinalized<(new (...args: any[]) => IDatePickerType & {}) | (() => IDatePickerType) | ((new (...args: any[]) => IDatePickerType & {}) | (() => IDatePickerType))[], unknown, unknown, "date", boolean>;
+    readonly emptyValues: ArrayConstructor;
+    readonly valueOnClear: import("element-plus/es/utils").EpPropFinalized<readonly [StringConstructor, NumberConstructor, BooleanConstructor, FunctionConstructor], unknown, unknown, undefined, boolean>;
     readonly disabledDate: {
         readonly type: import("vue").PropType<Function>;
         readonly required: false;

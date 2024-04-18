@@ -1,6 +1,6 @@
 import '../../../utils/index.mjs';
 import '../../../constants/index.mjs';
-import { dialogContentProps } from './dialog-content2.mjs';
+import { dialogContentProps } from './dialog-content.mjs';
 import { buildProps, definePropType } from '../../../utils/vue/props/runtime.mjs';
 import { UPDATE_MODEL_EVENT } from '../../../constants/event.mjs';
 import { isBoolean } from '../../../utils/types.mjs';

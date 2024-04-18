@@ -44,7 +44,6 @@ const TableV2 = vue.defineComponent({
       depthMap,
       expandedRowKeys,
       hasFixedColumns,
-      hoveringRowKey,
       mainTableRef,
       leftTableRef,
       rightTableRef,
@@ -79,7 +78,6 @@ const TableV2 = vue.defineComponent({
     vue.provide(tokens.TableV2InjectionKey, {
       ns,
       isResetting,
-      hoveringRowKey,
       isScrolling
     });
     return () => {
@@ -187,7 +185,6 @@ const TableV2 = vue.defineComponent({
         expandedRowKeys: vue.unref(expandedRowKeys),
         estimatedRowHeight,
         hasFixedColumns: vue.unref(hasFixedColumns),
-        hoveringRowKey: vue.unref(hoveringRowKey),
         rowProps,
         rowClass,
         rowKey,

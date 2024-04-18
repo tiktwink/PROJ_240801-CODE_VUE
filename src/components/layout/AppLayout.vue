@@ -5,11 +5,17 @@
       style="max-height:100vh; ">
     <!-- appStore.apptopbarOn控制顶栏显示-->
     <AppTopbar :style="{height:'80px','z-index':'990'}"></AppTopbar>
+    <!--主区-->
     <div id="applayout_main"
          class="test-main-wrapper bg-white dark:bg-[#2a2a2a] flex flex-col items-center justify-between rounded-lg"
          style="height:calc(100vh - 80px - 1rem); overflow:hidden;">
       
-      <router-view/>
+      <!--配置需要缓存的路由-->
+      <router-view v-slot="{ Component }">
+        <keep-alive include="Paper">
+          <component :is="Component"/>
+        </keep-alive>
+      </router-view>
     </div>
     
     <!--右侧栏收起时的打开开关-->
@@ -97,8 +103,6 @@
       
       
     },
-    
-    
   }
 </script>
 

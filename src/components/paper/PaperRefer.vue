@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div></div>
+  <div>daan</div>
 </template>
 
 <style lang="scss" scoped>

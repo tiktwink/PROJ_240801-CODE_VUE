@@ -4,6 +4,7 @@ import { CircleClose } from '@element-plus/icons-vue';
 import { disabledTimeListsProps } from '../props/shared.mjs';
 import { buildProps, definePropType } from '../../../../utils/vue/props/runtime.mjs';
 import { useSizeProp } from '../../../../hooks/use-size/index.mjs';
+import { useEmptyValuesProps } from '../../../../hooks/use-empty-values/index.mjs';
 
 const timePickerDefaultProps = buildProps({
   id: {
@@ -93,7 +94,8 @@ const timePickerDefaultProps = buildProps({
     type: Boolean,
     default: true
   },
-  unlinkPanels: Boolean
+  unlinkPanels: Boolean,
+  ...useEmptyValuesProps
 });
 
 export { timePickerDefaultProps };

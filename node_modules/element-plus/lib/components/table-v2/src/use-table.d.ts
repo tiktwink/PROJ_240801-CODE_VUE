@@ -9,7 +9,6 @@ declare function useTable(props: TableV2Props): {
     isDynamic: import("vue").ComputedRef<boolean>;
     isResetting: import("vue").ShallowRef<boolean>;
     isScrolling: import("vue").ShallowRef<boolean>;
-    hoveringRowKey: import("vue").ShallowRef<import("./types").KeyType | null>;
     hasFixedColumns: import("vue").ComputedRef<number>;
     columnsStyles: import("vue").ComputedRef<Record<any, import("vue").CSSProperties>>;
     columnsTotalWidth: import("vue").ComputedRef<number>;
