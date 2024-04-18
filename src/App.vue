@@ -1,6 +1,10 @@
 <template>
   
-  <Toast/>
+  <Toast/> <!--position:top-right-->
+  <Toast group="top-left" position="top-left"/>
+  <Toast group="top-center" position="top-center"/>
+  <Toast group="center" position="center"/>
+  <Toast group="bottom-right" position="bottom-right"/>
   
   <div class="drawer">
     <div class="drawer-content">

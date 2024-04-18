@@ -28,8 +28,7 @@
         if (newValue > 100) this.imgWidth = 100
         else if (newValue < 30) this.imgWidth = 30
       },
-      paperreferuploaddone(newValue, oldValue) {
-        
+      paperemptyuploaddone(newValue, oldValue) {
         //以下1行：用于“重新导入”功能，因为重新导入的试卷原本存在url，由于后台存储策略的问题，即使图像变了，url字面值也不会变，因此不会触发前端自动刷新
         //因此要手动令其触发前端的自动刷新，这里采用的办法是先让其url变为空值（有一点需要注意，不需要url字面值变化才能触发自动刷新，实际上只要paper的任何属性变了，都会触发自动刷新，而不仅仅是url，但对于原本存在url的试卷，重新导入后其hasUrl属性本身仍旧不变，因此只能采用令其url变的策略来触发，当然，也可以手动控制hasUrl变化，即先让hasUrl为0，后面再令其为1
         this.paper.urlEmpty = '' //这里最好给一个显示“导入中...”的图片地址
@@ -57,8 +56,8 @@
       reImportOn() {
         return this.paperStore.reImportOn
       },
-      paperreferuploaddone() {
-        return this.appStore.paperreferuploaddone
+      paperemptyuploaddone() {
+        return this.appStore.paperemptyuploaddone
       }
     },
     
@@ -109,9 +108,9 @@
 <template>
   <div class="w-full h-full px-2">
     <div class="relative">
-      <p class="font-bold text-xl mb-3 relative">查看底卷
+      <p class="font-bold text-xl top-[-0.25rem] mb-3 relative">查看底卷
         <span
-            class="absolute left-[21rem] top-12 text-sm btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
+            class="absolute left-[21rem] top-11 text-sm btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
             @click="resetImgWidth">
         <svg class="icon" height="16" p-id="3785" t="1713191560562" version="1.1"
              viewBox="0 0 1024 1024" width="16" xmlns="http://www.w3.org/2000/svg"><path
@@ -120,7 +119,7 @@
       </span>
         <span v-if="paper.hasUrlEmpty===1"
               :class="{'item-choosen':appStore.sideOn&&appStore.sidePart==='paperemptyupload'}"
-              class="absolute text-sm left-[30.5rem] top-12 btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
+              class="absolute text-sm left-[30.5rem] top-11 btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
               @click="reImportPaper">
         <svg v-if="appStore.sideOn&&appStore.sidePart==='paperemptyupload'" class="icon" height="16" p-id="15557"
              t="1713359640135"
@@ -136,7 +135,7 @@
       </span>
       </p>
       
-      <p class="absolute top-1 left-[21rem] font-bold text-xl mb-3 ">管理底卷</p>
+      <p class="absolute top-[-0.25rem] left-[21rem] font-bold text-xl mb-3 ">管理底卷</p>
       
       <span class="ml-2 text-lg inline-flex items-center"><text class="font-bold mr-1">试卷类型</text><text
           class="ml-1.5 font-normal text-sm rounded bg-info text-white cursor-pointer px-1.5 py-0.5">

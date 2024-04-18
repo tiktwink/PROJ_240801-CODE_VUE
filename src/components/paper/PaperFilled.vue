@@ -110,9 +110,9 @@
 <template>
   <div class="w-full h-full px-2">
     <div class="relative">
-      <p class="font-bold text-xl mb-3 relative">查看答卷
+      <p class="font-bold top-[-0.25rem] text-xl mb-3 relative">查看答卷
         <span
-            class="absolute left-[21rem] top-12 text-sm btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
+            class="absolute left-[21rem] top-11 text-sm btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
             @click="resetImgWidth">
         <svg class="icon" height="16" p-id="3785" t="1713191560562" version="1.1"
              viewBox="0 0 1024 1024" width="16" xmlns="http://www.w3.org/2000/svg"><path
@@ -120,7 +120,7 @@
             fill="#515151" p-id="3786"></path></svg>重置放缩({{ imgWidth.toFixed(0) }}%)
       </span>
         <span v-if="paper.hasUrl===1" :class="{'item-choosen':appStore.sideOn&&appStore.sidePart==='paperfilledupload'}"
-              class="absolute text-sm left-[30.5rem] top-12 btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
+              class="absolute text-sm left-[30.5rem] top-11 btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
               @click="reImportPaper">
         <svg v-if="appStore.sideOn&&appStore.sidePart==='paperfilledupload'" class="icon" height="16" p-id="15557"
              t="1713359640135"
@@ -136,7 +136,7 @@
       </span>
       </p>
       
-      <p class="absolute top-1 left-[21rem] font-bold text-xl mb-3 ">管理答卷</p>
+      <p class="absolute top-[-0.25rem] left-[21rem] font-bold text-xl mb-3 ">管理答卷</p>
       
       <span class="ml-2 text-lg inline-flex items-center"><text class="font-bold mr-1">试卷类型</text><text
           class="ml-1.5 font-normal text-sm rounded bg-info text-white cursor-pointer px-1.5 py-0.5">

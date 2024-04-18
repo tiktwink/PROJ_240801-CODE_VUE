@@ -235,6 +235,7 @@
         paperScan: usePaperStore().paperType,
       }
     },
+    
     methods: {
       queryPaper() {
         // this.papers = []
@@ -247,25 +248,56 @@
             if (response.data.code === 0) {
               // console.log(response.data.data)
               this.papers = response.data.data
+              this.$toast.add({
+                severity: 'success',
+                summary: '查询成功',
+                life: 1500,
+                group: 'top-left'
+              })
             } else {
               this.papers = []
               this.paperScan = ''
+              this.$toast.add({
+                severity: 'error',
+                summary: '查询失败',
+                life: 1500, group: 'top-left'
+              })
             }
           }).catch(err => {
             this.papers = []
             this.paperScan = ''
+            this.$toast.add({
+              severity: 'contrast',
+              summary: '查询异常',
+              life: 1500, group: 'top-left'
+            })
           })
         } else if (this.paperType === '答案' || this.paperType === '底卷') {
           axiosJson.get(`/api/exam/indexs?id=${this.examId}&name=${this.examName}`).then(res => {
             if (res.data.code === 0) {
               this.papers = res.data.data
+              this.$toast.add({
+                severity: 'success',
+                summary: '查询成功',
+                life: 1500, group: 'top-left'
+              })
             } else {
               this.papers = []
               this.paperScan = ''
+              this.$toast.add({
+                severity: 'error',
+                summary: '查询失败',
+                life: 1500, group: 'top-left'
+              })
             }
           }).catch(err => {
             this.papers = [];
             this.paperScan = ''
+            this.$toast.add({
+              severity: 'contrast',
+              summary: '查询异常',
+              life: 1500, group: 'top-left'
+            })
           })
         }
         
@@ -275,6 +307,7 @@
         this.paperScan = paper
       }
     },
+    
     name: 'Paper',
     mounted() {
       document.getElementById('rside').style.visibility = 'visible';
