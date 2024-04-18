@@ -1,6 +1,5 @@
 <script>
   
-  
   import {axiosJson} from "@/apis/axios/axiosJson.js";
   import useAppStore from "@/stores/useAppStore.js";
   import usePaperStore from "@/stores/usePaperStore.js";

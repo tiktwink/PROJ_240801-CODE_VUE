@@ -2,14 +2,16 @@
   
   import {axiosJson} from "@/apis/axios/axiosJson.js";
   import useAppStore from "@/stores/useAppStore.js";
+  import usePaperStore from "@/stores/usePaperStore.js";
   
   export default {
     name: "PaperRefer",
     data() {
       return {
         appStore: useAppStore(),
+        paperStore: usePaperStore(),
         imgWidth: 50,
-        reImportOn: false,
+        // reImportOn: false,
       }
     },
     props: {
@@ -44,11 +46,16 @@
       },
       'appStore.sideOn'(newValue, oldValue) {
         if (!newValue) {
-          this.appStore.sidePart = '' //当无论因为什么原因，侧栏被关闭时(尤其是手动关闭时)，都要让侧栏恢复默认版块
+          //仅在当前界面下，才执行以下动作
+          if (this.$route.name === '试卷管理')
+            this.appStore.sidePart = '' //当无论因为什么原因，侧栏被关闭时(尤其是手动关闭时)，都要让侧栏恢复默认版块
         }
       }
     },
     computed: {
+      reImportOn() {
+        return this.paperStore.reImportOn
+      },
       paperreferuploaddone() {
         return this.appStore.paperreferuploaddone
       }
@@ -85,7 +92,7 @@
         this.appStore.paperreferuploaddone = false //监控，由PaperUpload方修改
       },
       reImportPaper() {
-        this.reImportOn = !this.reImportOn
+        this.paperStore.reImportOn = !this.paperStore.reImportOn
         if (this.reImportOn) {
           this.importPaper()
         } else {
