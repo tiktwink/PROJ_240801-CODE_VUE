@@ -42,9 +42,11 @@
       <div v-if="$route.name==='学科管理'">
         <SubjectRside/>
       </div>
+      
       <div v-else-if="$route.name==='考试管理'">
         <ExamRside/>
       </div>
+      
       <div v-else-if="$route.name==='评阅结果'">
         <AiCheckOutRside/>
       </div>
@@ -58,6 +60,16 @@
         <div>
           <p class="mt-1 ml-2 mb-3">
             <text class="font-bold text-base ">要上传的答卷ID：</text>
+            <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
+          </p>
+        </div>
+        <PaperUpload :paper-id="appStore.sidePaperId"/>
+      </div>
+      <div v-else-if="$route.name==='试卷管理' && appStore.sidePart==='paperreferupload'"
+           class="py-2 px-2">
+        <div>
+          <p class="mt-1 ml-2 mb-3">
+            <text class="font-bold text-base ">要上传的答案所属考试ID：</text>
             <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
           </p>
         </div>

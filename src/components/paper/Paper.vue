@@ -1,107 +1,3 @@
-<script>
-  import PaperEmpty from "@/components/paper/PaperEmpty.vue";
-  import PaperFilled from "@/components/paper/PaperFilled.vue";
-  import PaperRefer from "@/components/paper/PaperRefer.vue";
-  import PaperDetail from "@/components/paper/PaperDetail.vue";
-  import {NRadio, NRadioGroup, NSwitch} from "naive-ui";
-  import useAppStore from "@/stores/useAppStore.js";
-  import {axiosJson} from "@/apis/axios/axiosJson.js";
-  
-  export default {
-    name: 'Paper',
-    components: {
-      PaperEmpty, PaperFilled, PaperRefer, PaperDetail, NRadioGroup, NRadio, NSwitch
-    },
-    
-    data() {
-      return {
-        appStore: useAppStore(),
-        compName: 'PaperBase',
-        paperType: '答卷',
-        examId: '',
-        examName: '',
-        paperId: '',
-        studentId: "",
-        studentName: '',
-        onlyLatest30Day: false,
-        papers: [],
-        turnQueryPaper: false,
-        turnScanPaper: false,
-        paperScan: '',
-      }
-    },
-    
-    mounted() {
-      this.appStore.sideOn = false
-      document.getElementById('rside').style.visibility = 'visible';
-    },
-    
-    unmounted() {
-      this.appStore.sideOn = false
-      this.appStore.sidePart = ''
-      this.appStore.sidePaperId = ''
-      this.appStore.paperfilleduploaddone = false
-    },
-    
-    watch: {
-      paperType(newValue, oldValue) {
-        this.papers = []
-        this.paperScan = ''
-        this.turnScanPaper = false
-        this.turnQueryPaper = false
-      }
-    },
-    
-    methods: {
-      queryPaper() {
-        // this.papers = []
-        // this.paperScan=''
-        this.turnQueryPaper = true
-        // this.turnScanPaper = false
-        if (this.paperType === '答卷') {
-          axiosJson.get(`/api/paper/indexs?id=${this.paperId}&examId=${this.examId}&examName=${this.examName}&studentId=${this.studentId}&studentName=${this.studentName}`)
-          .then(response => {
-            if (response.data.code === 0) {
-              // console.log(response.data.data)
-              this.papers = response.data.data
-            } else {
-              this.papers = []
-              this.paperScan = ''
-            }
-          }).catch(err => {
-            this.papers = []
-            this.paperScan = ''
-          })
-        } else if (this.paperType === '答案' || this.paperType === '底卷') {
-          axiosJson.get(`/api/exam/indexs?id=${this.examId}&name=${this.examName}`).then(res => {
-            if (res.data.code === 0) {
-              this.papers = res.data.data
-            } else {
-              this.papers = []
-              this.paperScan = ''
-            }
-          }).catch(err => {
-            this.papers = [];
-            this.paperScan = ''
-          })
-        }
-        
-      },
-      scanPaper(paper) {
-        this.turnScanPaper = true
-        this.paperScan = paper
-      }
-    },
-    
-    // computed: {
-    //   compName() {
-    //     return 'PaperBase'
-    //   }
-    // },
-  }
-</script>
-
-
 <template>
   <div class="w-full h-full bg-accent rounded-lg">
     
@@ -305,6 +201,126 @@
   
   </div>
 </template>
+
+<script>
+  import PaperEmpty from "@/components/paper/PaperEmpty.vue";
+  import PaperFilled from "@/components/paper/PaperFilled.vue";
+  import PaperRefer from "@/components/paper/PaperRefer.vue";
+  import PaperDetail from "@/components/paper/PaperDetail.vue";
+  import {NRadio, NRadioGroup, NSwitch} from "naive-ui";
+  import useAppStore from "@/stores/useAppStore.js";
+  import {axiosJson} from "@/apis/axios/axiosJson.js";
+  import usePaperStore from "@/stores/usePaperStore.js";
+  
+  export default {
+    components: {
+      PaperEmpty, PaperFilled, PaperRefer, PaperDetail, NRadioGroup, NRadio, NSwitch
+    },
+    
+    data() {
+      return {
+        appStore: useAppStore(),
+        paperStore: usePaperStore(),
+        compName: 'PaperBase',
+        paperType: '答卷',
+        examId: '',
+        examName: '',
+        paperId: '',
+        studentId: "",
+        studentName: '',
+        onlyLatest30Day: false,
+        papers: [],
+        turnQueryPaper: false,
+        turnScanPaper: false,
+        paperScan: '',
+      }
+    },
+    
+    methods: {
+      queryPaper() {
+        // this.papers = []
+        // this.paperScan=''
+        this.turnQueryPaper = true
+        // this.turnScanPaper = false
+        if (this.paperType === '答卷') {
+          axiosJson.get(`/api/paper/indexs?id=${this.paperId}&examId=${this.examId}&examName=${this.examName}&studentId=${this.studentId}&studentName=${this.studentName}`)
+          .then(response => {
+            if (response.data.code === 0) {
+              // console.log(response.data.data)
+              this.papers = response.data.data
+            } else {
+              this.papers = []
+              this.paperScan = ''
+            }
+          }).catch(err => {
+            this.papers = []
+            this.paperScan = ''
+          })
+        } else if (this.paperType === '答案' || this.paperType === '底卷') {
+          axiosJson.get(`/api/exam/indexs?id=${this.examId}&name=${this.examName}`).then(res => {
+            if (res.data.code === 0) {
+              this.papers = res.data.data
+            } else {
+              this.papers = []
+              this.paperScan = ''
+            }
+          }).catch(err => {
+            this.papers = [];
+            this.paperScan = ''
+          })
+        }
+        
+      },
+      scanPaper(paper) {
+        this.turnScanPaper = true
+        this.paperScan = paper
+      }
+    },
+    name: 'Paper',
+    mounted() {
+      document.getElementById('rside').style.visibility = 'visible';
+      this.appStore.sideOn = this.paperStore.sideOn
+    },
+    //适用于组件缓存时
+    activated() {
+      document.getElementById('rside').style.visibility = 'visible';
+      this.appStore.sideOn = this.paperStore.sideOn
+    },
+    unmounted() {
+      this.appStore.sideOn = false
+      this.appStore.sidePart = ''
+      this.appStore.sidePaperId = ''
+      this.appStore.paperfilleduploaddone = false
+    },
+    //适用于组件缓存时
+    deactivated() {
+      this.appStore.sideOn = false
+      console.log(this.appStore.sideOn)
+      // this.appStore.sidePart = ''
+      // this.appStore.sidePaperId = ''
+      // this.appStore.paperfilleduploaddone = false
+    },
+    watch: {
+      paperType(newValue, oldValue) {
+        this.papers = []
+        this.paperScan = ''
+        this.turnScanPaper = false
+        this.turnQueryPaper = false
+      },
+      'appStore.sideOn'(newValue, oldValue) {
+        //仅处于当前页面时才执行以下操作
+        if (this.$route.name === '试卷管理')
+          this.paperStore.sideOn = newValue
+      }
+    },
+    
+    // computed: {
+    //   compName() {
+    //     return 'PaperBase'
+    //   }
+    // },
+  }
+</script>
 
 
 <style lang="scss" scoped>

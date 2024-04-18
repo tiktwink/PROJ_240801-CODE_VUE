@@ -22,8 +22,11 @@ const useAppStore = defineStore('appstore', {
       
       sideOn: false, //右侧边栏显示, 若替换为sideOn: screen.width >= 992,表示宽屏默认展示右侧边栏
       sidePart: '', //不持久化，用于在确定了路由之后，进一步确定右侧栏的组件内容（在当前界面右侧栏可能根据不同条件展示不同内容）
-      sidePaperId: '',
+      sidePaperId: '', //既包括答卷paper表(答卷)，也包括考试exam表(底卷、答案)
       paperfilleduploaddone: false, //每次将要上传答卷前将该标记置为false，每次上传后变为true
+      paperreferuploaddone: false, //每次将要上传答案前将该标记置为false，每次上传后变为true
+      
+      
       
       //阅卷
       choosenExams: [],
