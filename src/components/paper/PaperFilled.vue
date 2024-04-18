@@ -30,8 +30,8 @@
         else if (newValue < 30) this.imgWidth = 30
       },
       paperfilleduploaddone(newValue, oldValue) {
-        if (newValue) {
-          //以下1行：用于“重新导入”功能，因为重新导入的试卷原本存在url，由于后台存储策略的问题，即使图像变了，url字面值也不会变，因此不会触发前端自动刷新
+        
+        //以下1行：用于“重新导入”功能，因为重新导入的试卷原本存在url，由于后台存储策略的问题，即使图像变了，url字面值也不会变，因此不会触发前端自动刷新
           //因此要手动令其触发前端的自动刷新，这里采用的办法是先让其url变为空值（有一点需要注意，不需要url字面值变化才能触发自动刷新，实际上只要paper的任何属性变了，都会触发自动刷新，而不仅仅是url，但对于原本存在url的试卷，重新导入后其hasUrl属性本身仍旧不变，因此只能采用令其url变的策略来触发，当然，也可以手动控制hasUrl变化，即先让hasUrl为0，后面再令其为1
           this.paper.url = '' //这里最好给一个显示“导入中...”的图片地址
           
@@ -40,10 +40,10 @@
             if (res.data.code === 0) {
               this.paper.hasUrl = 1
               this.paper.url = res.data.data[0].url
-              console.log('子组件PaperFilled.vue修改了props的部分属性')
+              // console.log('子组件PaperFilled.vue修改了props的部分属性')
             }
           })
-        }
+        
       },
       'appStore.sideOn'(newValue, oldValue) {
         if (!newValue) {
@@ -91,7 +91,6 @@
         this.appStore.sideOn = true
         this.appStore.sidePart = 'paperfilledupload'
         this.appStore.sidePaperId = this.paper.id
-        this.appStore.paperfilleduploaddone = false //监控，由PaperUpload方修改
       },
       reImportPaper() {
         this.paperStore.reImportOn = !this.paperStore.reImportOn
@@ -101,7 +100,6 @@
           this.appStore.sidePart = ''
           this.appStore.sideOn = false
           this.appStore.sidePaperId = ''
-          this.appStore.paperfilleduploaddone = false //监控，由PaperUpload方修改
         }
         
       }

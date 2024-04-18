@@ -1,3 +1,42 @@
+<script>
+  import useAppStore from "@/stores/useAppStore.js";
+  import AppTopbar from "@/components/layout/AppTopbar.vue";
+  import SubjectRside from "@/components/subject/SubjectRside.vue"
+  import ExamRside from "@/components/exam/ExamRside.vue";
+  import AiCheckOutRside from "@/components/aicheck/AiCheckOutRside.vue";
+  import StudentRside from "@/components/student/StudentRside.vue";
+  import PaperUpload from "@/components/aicheck/PaperUpload.vue";
+  import usePaperStore from "@/stores/usePaperStore.js";
+  import PaperRside from "@/components/paper/PaperRside.vue";
+  
+  export default {
+    
+    components: {PaperUpload, PaperRside, StudentRside, AiCheckOutRside, AppTopbar, SubjectRside, ExamRside},
+    data() {
+      return {
+        appStore: useAppStore(), //控制边栏显示，边栏的开关在顶栏中，而边栏在APPLayout中，顶栏AppTopbar和APPLayout之间用仓库通信
+        paperStore: usePaperStore(),
+        narrowScreen: useAppStore().narrowScreen, //是否窄屏，只在APP启动时接收一次，后续默认不变（可进一步优化）
+      }
+    },
+    mounted() {
+      console.log(this.$route.name)
+      /*//右侧栏添加事件监听
+      document.getElementById('rside').addEventListener('click', () => {
+        // console.log('rside-button clicked')
+        this.appStore.sideOn = !this.appStore.sideOn
+      })*/
+    },
+    methods: {
+      handleMaskTap() {
+        this.appStore.toggleSideOn()
+      },
+      
+      
+    },
+  }
+</script>
+
 <template>
   <div
       :class="{ 'wide-with-side':!narrowScreen && appStore.sideOn, 'narrow-with-side':narrowScreen && appStore.sideOn }"
@@ -55,68 +94,48 @@
         <StudentRside/>
       </div>
       
-      <div v-else-if="$route.name==='试卷管理' && appStore.sidePart==='paperfilledupload'"
-           class="py-2 px-2">
-        <div>
-          <p class="mt-1 ml-2 mb-3">
-            <text class="font-bold text-base ">要上传的答卷ID：</text>
-            <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
-          </p>
+      <div v-else-if="$route.name==='试卷管理'">
+        <div v-if="appStore.sidePart==='paperfilledupload'&&paperStore.reImportOn"
+             class="py-2 px-2">
+          <div>
+            <p class="mt-1 ml-2 mb-3">
+              <text class="font-bold text-lg ">要上传的答卷ID：</text>
+              <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
+            </p>
+          </div>
+          <PaperUpload :paper-id="appStore.sidePaperId"/>
         </div>
-        <PaperUpload :paper-id="appStore.sidePaperId"/>
-      </div>
-      <div v-else-if="$route.name==='试卷管理' && appStore.sidePart==='paperreferupload'"
-           class="py-2 px-2">
-        <div>
-          <p class="mt-1 ml-2 mb-3">
-            <text class="font-bold text-base ">要上传的答案所属考试ID：</text>
-            <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
-          </p>
+        <div v-else-if="appStore.sidePart==='paperreferupload'&&paperStore.reImportOn"
+             class="py-2 px-2">
+          <div>
+            <p class="mt-1 ml-2 mb-3">
+              <text class="font-bold text-lg ">要上传的答案所属考试ID：</text>
+              <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
+            </p>
+          </div>
+          <PaperUpload :paper-id="appStore.sidePaperId"/>
         </div>
-        <PaperUpload :paper-id="appStore.sidePaperId"/>
+        <div v-else-if="appStore.sidePart==='paperemptyupload'&&paperStore.reImportOn"
+             class="py-2 px-2">
+          <div>
+            <p class="mt-1 ml-2 mb-3">
+              <text class="font-bold text-lg ">要上传的底卷所属考试ID：</text>
+              <text>{{ appStore.sidePaperId === '' ? '-' : appStore.sidePaperId }}</text>
+            </p>
+          </div>
+          <PaperUpload :paper-id="appStore.sidePaperId"/>
+        </div>
+        
+        <PaperRside/>
       </div>
+    
+    
     </div>
     
     <!--蒙层(窄屏模式)-->
     <div class="test-mask" @click="handleMaskTap"></div>
   </div>
 </template>
-
-<script>
-  import useAppStore from "@/stores/useAppStore.js";
-  import AppTopbar from "@/components/layout/AppTopbar.vue";
-  import SubjectRside from "@/components/subject/SubjectRside.vue"
-  import ExamRside from "@/components/exam/ExamRside.vue";
-  import AiCheckOutRside from "@/components/aicheck/AiCheckOutRside.vue";
-  import StudentRside from "@/components/student/StudentRside.vue";
-  import PaperUpload from "@/components/aicheck/PaperUpload.vue";
-  
-  export default {
-    
-    components: {PaperUpload, StudentRside, AiCheckOutRside, AppTopbar, SubjectRside, ExamRside},
-    data() {
-      return {
-        appStore: useAppStore(), //控制边栏显示，边栏的开关在顶栏中，而边栏在APPLayout中，顶栏AppTopbar和APPLayout之间用仓库通信
-        narrowScreen: useAppStore().narrowScreen, //是否窄屏，只在APP启动时接收一次，后续默认不变（可进一步优化）
-      }
-    },
-    mounted() {
-      console.log(this.$route.name)
-      /*//右侧栏添加事件监听
-      document.getElementById('rside').addEventListener('click', () => {
-        // console.log('rside-button clicked')
-        this.appStore.sideOn = !this.appStore.sideOn
-      })*/
-    },
-    methods: {
-      handleMaskTap() {
-        this.appStore.toggleSideOn()
-      },
-      
-      
-    },
-  }
-</script>
 
 <style lang="scss" scoped>
   

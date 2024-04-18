@@ -222,7 +222,7 @@
         appStore: useAppStore(),
         paperStore: usePaperStore(),
         compName: 'PaperBase',
-        paperType: '答卷',
+        paperType: usePaperStore().paperType,
         examId: '',
         examName: '',
         paperId: '',
@@ -232,10 +232,9 @@
         papers: [],
         turnQueryPaper: false,
         turnScanPaper: false,
-        paperScan: '',
+        paperScan: usePaperStore().paperType,
       }
     },
-    
     methods: {
       queryPaper() {
         // this.papers = []
@@ -295,7 +294,7 @@
     //适用于组件缓存时
     deactivated() {
       this.appStore.sideOn = false
-      console.log(this.appStore.sideOn)
+      this.paperScan = ''
       // this.appStore.sidePart = ''
       // this.appStore.sidePaperId = ''
       // this.appStore.paperfilleduploaddone = false
@@ -306,11 +305,17 @@
         this.paperScan = ''
         this.turnScanPaper = false
         this.turnQueryPaper = false
+        this.paperStore.reImportOn = false
+        
+        this.paperStore.paperType = newValue
       },
       'appStore.sideOn'(newValue, oldValue) {
         //仅处于当前页面时才执行以下操作
         if (this.$route.name === '试卷管理')
           this.paperStore.sideOn = newValue
+      },
+      paperScan(newValue, oldValue) {
+        this.paperStore.paperScan = newValue
       }
     },
     

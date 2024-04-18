@@ -29,20 +29,19 @@
         else if (newValue < 30) this.imgWidth = 30
       },
       paperreferuploaddone(newValue, oldValue) {
-        if (newValue) {
-          //以下1行：用于“重新导入”功能，因为重新导入的试卷原本存在url，由于后台存储策略的问题，即使图像变了，url字面值也不会变，因此不会触发前端自动刷新
-          //因此要手动令其触发前端的自动刷新，这里采用的办法是先让其url变为空值（有一点需要注意，不需要url字面值变化才能触发自动刷新，实际上只要paper的任何属性变了，都会触发自动刷新，而不仅仅是url，但对于原本存在url的试卷，重新导入后其hasUrl属性本身仍旧不变，因此只能采用令其url变的策略来触发，当然，也可以手动控制hasUrl变化，即先让hasUrl为0，后面再令其为1
-          this.paper.urlRefer = '' //这里最好给一个显示“导入中...”的图片地址
-          
-          axiosJson.get(`/api/exam/index?id=${this.paper.id}`)
-          .then(res => {
-            if (res.data.code === 0) {
-              this.paper.hasUrlRefer = 1
-              this.paper.urlRefer = res.data.data[0].urlRefer
-              console.log('子组件PaperRefer.vue修改了props的部分属性')
-            }
-          })
-        }
+        //以下1行：用于“重新导入”功能，因为重新导入的试卷原本存在url，由于后台存储策略的问题，即使图像变了，url字面值也不会变，因此不会触发前端自动刷新
+        //因此要手动令其触发前端的自动刷新，这里采用的办法是先让其url变为空值（有一点需要注意，不需要url字面值变化才能触发自动刷新，实际上只要paper的任何属性变了，都会触发自动刷新，而不仅仅是url，但对于原本存在url的试卷，重新导入后其hasUrl属性本身仍旧不变，因此只能采用令其url变的策略来触发，当然，也可以手动控制hasUrl变化，即先让hasUrl为0，后面再令其为1
+        this.paper.urlRefer = '' //这里最好给一个显示“导入中...”的图片地址
+        
+        axiosJson.get(`/api/exam/index?id=${this.paper.id}`)
+        .then(res => {
+          if (res.data.code === 0) {
+            this.paper.hasUrlRefer = 1
+            this.paper.urlRefer = res.data.data.urlRefer
+            // console.log(res.data)
+            // console.log('子组件PaperRefer.vue修改了props的部分属性')
+          }
+        })
       },
       'appStore.sideOn'(newValue, oldValue) {
         if (!newValue) {
@@ -89,7 +88,6 @@
         this.appStore.sideOn = true
         this.appStore.sidePart = 'paperreferupload'
         this.appStore.sidePaperId = this.paper.id
-        this.appStore.paperreferuploaddone = false //监控，由PaperUpload方修改
       },
       reImportPaper() {
         this.paperStore.reImportOn = !this.paperStore.reImportOn
@@ -99,7 +97,6 @@
           this.appStore.sidePart = ''
           this.appStore.sideOn = false
           this.appStore.sidePaperId = ''
-          this.appStore.paperreferuploaddone = false //监控，由PaperUpload方修改
         }
         
       }
@@ -110,7 +107,7 @@
 <template>
   <div class="w-full h-full px-2">
     <div class="relative">
-      <p class="font-bold text-xl mb-3 relative">查看答卷
+      <p class="font-bold text-xl mb-3 relative">查看答案
         <span
             class="absolute left-[21rem] top-12 text-sm btn btn-ghost btn-sm ml-4 mb-2 font-normal border-none bg-white hover:bg-secondary"
             @click="resetImgWidth">
@@ -137,13 +134,13 @@
       </span>
       </p>
       
-      <p class="absolute top-1 left-[21rem] font-bold text-xl mb-3 ">管理答卷</p>
+      <p class="absolute top-1 left-[21rem] font-bold text-xl mb-3 ">管理答案</p>
       
       <span class="ml-2 text-lg inline-flex items-center"><text class="font-bold mr-1">试卷类型</text><text
           class="ml-1.5 font-normal text-sm rounded bg-info text-white cursor-pointer px-1.5 py-0.5">
-              答卷
+              答案
             </text></span>
-      <span class="ml-4 text-lg inline-flex items-center"><text class="font-bold mr-1">试卷ID</text><text
+      <span class="ml-4 text-lg inline-flex items-center"><text class="font-bold mr-1">所属考试ID</text><text
           class="ml-1.5 font-normal text-sm rounded bg-info text-white cursor-pointer px-1.5 py-0.5">
               {{ paper.id }}
             </text></span>
@@ -172,7 +169,7 @@
       </div>
       <div v-else class="flex flex-col items-center gap-y-4 pt-4">
         <p class="text-red-500 text-xl font-bold">当前答案尚未导入图像...o_O</p>
-        <span class="btn btn-ghost border-none bg-white btn-sm hover:bg-secondary font-bold " @click="importPaper">导入答卷图像 =></span>
+        <span class="btn btn-ghost border-none bg-white btn-sm hover:bg-secondary font-bold " @click="importPaper">导入答案图像 =></span>
       </div>
     </div>
   </div>

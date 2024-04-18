@@ -1,11 +1,12 @@
 <template>
-  <div class="w-full pt-2 border-none rounded-lg bg-white flex flex-col items-center gap-y-1 justify-center border">
-    <div class="item text-base">
+  <div
+      class="w-full pt-3 pb-1 border-none rounded-lg bg-white flex flex-col items-center gap-y-1 justify-center border">
+    <div class="item text-sm">
       <!--      <p class="text-base font-bold my-1">⚫ 1分钟之内上传的相同文件会被覆盖</p>-->
-      <p class="text-base font-bold my-1">⚫ 单个文件大小不能超过2M</p>
+      <p class="  mb-1">⚫ 单个文件大小不能超过2M</p>
       <!--      <p class="text-base font-bold my-1">⚫ 1s内只能上传1次</p>-->
-      <p class="text-base font-bold my-1">⚫ 1次只能上传1个文件</p> <!-- <p>⚫刷接口会被拉黑</p>-->
-      <p class="text-base font-bold my-1">⚫ 已上传过的试卷再次上传会被覆盖</p>
+      <p class=" my-1">⚫ 1次只能上传1个文件</p> <!-- <p>⚫刷接口会被拉黑</p>-->
+      <p class=" my-1">⚫ 已上传过的试卷再次上传会被覆盖</p>
     </div>
     
     <div class="item">
@@ -28,6 +29,7 @@
         </el-button>
       </el-upload>
     </div>
+    
     <!--    <div class="item">-->
     <!--      <p class="text-lg font-bold">刚刚上传文件的访问路径：</p>-->
     <!--      <a :href="'http://'+imageUrl" class="text-sm">{{ imageUrl }}</a>-->
@@ -55,6 +57,7 @@
         imageUrl: '',
         banUnload: false,
         resList: [],
+        appStore: useAppStore()
       }
     },
     methods: {
@@ -62,7 +65,6 @@
         this.imageUrl = URL.createObjectURL(file.raw);
         console.log(this.imageUrl)
       },
-      
       submitUpload() {
         if (this.fileList.length === 0) {
           this.$toast.add({
@@ -82,49 +84,161 @@
         }, 1000)
       },
       picUpload(f) {
-        // console.log('picUpload')
         let params = new FormData()
         //注意在这里一个坑f.file
         params.append("file", f.file);
-        // console.log(this.paperId)
-        axios({
-          method: 'post',
-          url: `/api/paper/singleupload/${this.paperId}`,
-          data: params,
-          headers: {
-            username: useUserStore().username,
-            token: useUserStore().token,
-            'content-type': 'multipart/form-data'
-          }
-        })
-        .then(resp => {
-          if (resp.data.code === 0) {
-            this.$emit('uploadsuccess')
+        
+        if (this.$route.name === '试卷管理' && this.appStore.sidePart === 'paperfilledupload') {
+          axios({
+            method: 'post',
+            url: `/api/paper/singleupload/${this.paperId}`,
+            data: params,
+            headers: {
+              username: useUserStore().username,
+              token: useUserStore().token,
+              'content-type': 'multipart/form-data'
+            }
+          })
+          .then(resp => {
+            if (resp.data.code === 0) {
+              this.$emit('uploadsuccess')
+              this.$toast.add({
+                severity: 'success',
+                summary: '上传成功',
+                life: 1500
+              })
+              // this.imageUrl = resp.data.data;
+              useAppStore().paperfilleduploaddone = String(Date.now()) //在试卷管理中已监控该值变化，及时让其知道上传成功
+              this.resList.push(resp.data.data)
+            } else {
+              this.$toast.add({
+                severity: 'warn',
+                summary: '上传失败',
+                life: 3000
+              })
+            }
+          })
+          .catch(err => {
             this.$toast.add({
-              severity: 'success',
-              summary: '上传成功',
-              life: 1500
-            })
-            // this.imageUrl = resp.data.data;
-            useAppStore().paperfilleduploaddone = true //在试卷管理中已监控该值变化，及时让其知道上传成功
-            this.resList.push(resp.data.data)
-          } else {
-            this.$toast.add({
-              severity: 'warn',
-              summary: '上传失败',
+              severity: 'error',
+              summary: '上传异常',
               life: 3000
             })
-          }
-        })
-        .catch(err => {
-          this.$toast.add({
-            severity: 'error',
-            summary: '上传异常',
-            life: 3000
           })
-        })
+        } else if (this.$route.name === '试卷管理' && this.appStore.sidePart === 'paperreferupload') {
+          axios({
+            method: 'post',
+            url: `/api/exam/upload/refer/${this.paperId}`,
+            data: params,
+            headers: {
+              username: useUserStore().username,
+              token: useUserStore().token,
+              'content-type': 'multipart/form-data'
+            }
+          })
+          .then(resp => {
+            if (resp.data.code === 0) {
+              this.$emit('uploadsuccess')
+              this.$toast.add({
+                severity: 'success',
+                summary: '上传成功',
+                life: 1500
+              })
+              // this.imageUrl = resp.data.data;
+              useAppStore().paperreferuploaddone = String(Date.now()) //在试卷管理中已监控该值变化，及时让其知道上传成功
+              this.resList.push(resp.data.data)
+            } else {
+              this.$toast.add({
+                severity: 'warn',
+                summary: '上传失败',
+                life: 3000
+              })
+            }
+          })
+          .catch(err => {
+            this.$toast.add({
+              severity: 'error',
+              summary: '上传异常',
+              life: 3000
+            })
+          })
+        } else if (this.$route.name === '试卷管理' && this.appStore.sidePart === 'paperemptyupload') {
+          axios({
+            method: 'post',
+            url: `/api/exam/upload/empty/${this.paperId}`,
+            data: params,
+            headers: {
+              username: useUserStore().username,
+              token: useUserStore().token,
+              'content-type': 'multipart/form-data'
+            }
+          })
+          .then(resp => {
+            if (resp.data.code === 0) {
+              this.$emit('uploadsuccess')
+              this.$toast.add({
+                severity: 'success',
+                summary: '上传成功',
+                life: 1500
+              })
+              // this.imageUrl = resp.data.data;
+              useAppStore().paperemptyuploaddone = String(Date.now()) //在试卷管理中已监控该值变化，及时让其知道上传成功
+              this.resList.push(resp.data.data)
+            } else {
+              this.$toast.add({
+                severity: 'warn',
+                summary: '上传失败',
+                life: 3000
+              })
+            }
+          })
+          .catch(err => {
+            this.$toast.add({
+              severity: 'error',
+              summary: '上传异常',
+              life: 3000
+            })
+          })
+        } else if (this.$route.name === '智能阅卷系统') {
+          axios({
+            method: 'post',
+            url: `/api/paper/singleupload/${this.paperId}`,
+            data: params,
+            headers: {
+              username: useUserStore().username,
+              token: useUserStore().token,
+              'content-type': 'multipart/form-data'
+            }
+          })
+          .then(resp => {
+            if (resp.data.code === 0) {
+              this.$emit('uploadsuccess')
+              this.$toast.add({
+                severity: 'success',
+                summary: '上传成功',
+                life: 1500
+              })
+              // this.imageUrl = resp.data.data;
+              
+              this.resList.push(resp.data.data)
+            } else {
+              this.$toast.add({
+                severity: 'warn',
+                summary: '上传失败',
+                life: 3000
+              })
+            }
+          })
+          .catch(err => {
+            this.$toast.add({
+              severity: 'error',
+              summary: '上传异常',
+              life: 3000
+            })
+          })
+        }
+        
       },
-      
     },
     components: {
       ElButton,

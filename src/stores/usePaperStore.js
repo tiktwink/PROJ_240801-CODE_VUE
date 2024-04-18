@@ -4,7 +4,7 @@ const usePaperStore = defineStore('paperstore', {
   persist: { //自定义数据持久化
     key: 'paperstore',
     storage: localStorage,
-    paths: ['sideOn', 'reImportOn'],
+    paths: ['sideOn', 'reImportOn', 'paperType'],
     
   },
   
@@ -12,6 +12,8 @@ const usePaperStore = defineStore('paperstore', {
     return {
       sideOn: false,
       reImportOn: false,
+      paperType: '答卷',
+      paperScan: '',
     }
   },
   
