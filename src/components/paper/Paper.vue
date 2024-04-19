@@ -327,7 +327,7 @@
     //适用于组件缓存时
     deactivated() {
       this.appStore.sideOn = false
-      this.paperScan = ''
+      // this.paperScan = ''
       // this.appStore.sidePart = ''
       // this.appStore.sidePaperId = ''
       // this.appStore.paperfilleduploaddone = false

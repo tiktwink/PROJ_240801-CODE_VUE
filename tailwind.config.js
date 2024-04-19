@@ -1,7 +1,7 @@
 module.exports = {
   content: ['./index.html', './src/**/*.{vue,js,ts,html}'], //index.html看情况
   plugins: [require('daisyui')],
-  darkMode: 'class', //深浅模式配置，使用配置时是基于可控模式，如果将darkMode选项注释掉，则为基于设备模式(自动跟随设备深浅模式变换，不建议)
+  darkMode: 'class', //深浅模式配置，使用该配置时是基于可控模式，如果将darkMode选项注释掉，则为基于设备模式(自动跟随设备深浅模式变换，不建议)
   
   //TailwindCSS主题
   theme: {
