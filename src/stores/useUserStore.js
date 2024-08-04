@@ -4,13 +4,14 @@ const useUserStore = defineStore('userstore', {
   persist: { //部分数据持久化
     key: 'userstore',
     storage: localStorage,
-    paths: ['username', 'password', 'token', 'tokenValidDt']
+    paths: ['username', 'password', 'usernick', 'token', 'tokenValidDt']
   },
   
   state: () => { // state是函数式写法，声明数据及初值
     return {
-      username: '1001',
-      password: '123456',
+      username: '',
+      password: '',
+      usernick: '',
       token: '',
       tokenValidDt: '',
     }

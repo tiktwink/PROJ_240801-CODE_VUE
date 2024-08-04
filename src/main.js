@@ -1,26 +1,18 @@
+//naiveUI组件
+import {NCheckbox, NRadio, NScrollbar, NSelect, NTooltip} from "naive-ui";
+
+
+//primevue组件
+import PrimeVue from "primevue/config";
+import 'primevue/resources/themes/lara-light-blue/theme.css'
+import Dialog from 'primevue/dialog';
+import Toast from 'primevue/toast';
+import ToastService from 'primevue/toastservice';
 import {createApp} from 'vue'
 import './styles/style.scss'
 import App from './App.vue'
 import router from './router';
 import pinia from './stores'
-import {QuillEditor} from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css'
-import {Anchor as TAnchor, AnchorItem as TAnchorItem} from 'tdesign-vue-next';
-import DividerHorizontal from "@/components/utility/DividerHorizontal.vue";
-
-//引入TDesign组件库的少量全局样式变量
-import 'tdesign-vue-next/es/style/index.css';
-
-//primevue组件
-import PrimeVue from "primevue/config";
-import 'primevue/resources/themes/lara-light-blue/theme.css'
-import ToastService from 'primevue/toastservice';
-import Toast from 'primevue/toast';
-import Dialog from 'primevue/dialog';
-
-
-//naiveUI组件
-import {NScrollbar} from "naive-ui";
 
 // 实例化应用
 const app = createApp(App)
@@ -29,14 +21,12 @@ const app = createApp(App)
 app.use(router)
 app.use(pinia)
 
-//TDesign组件
-app.use(TAnchor)
-app.use(TAnchorItem)
-
 //其它组件
-app.component('QuillEditor', QuillEditor)
-app.component('DividerHorizontal', DividerHorizontal)
 app.component('NScrollbar', NScrollbar)
+app.component('NTooltip', NTooltip)
+app.component('NCheckbox', NCheckbox)
+app.component('NRatio', NRadio)
+app.component('NSelect', NSelect)
 
 //primevue插件、组件
 app.use(PrimeVue)

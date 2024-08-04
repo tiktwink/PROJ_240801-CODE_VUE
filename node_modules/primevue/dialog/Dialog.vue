@@ -84,7 +84,8 @@ export default {
             containerVisible: this.visible,
             maximized: false,
             focusableMax: null,
-            focusableClose: null
+            focusableClose: null,
+            target: null
         };
     },
     watch: {
@@ -139,6 +140,7 @@ export default {
         },
         onEnter() {
             this.$emit('show');
+            this.target = document.activeElement;
             this.focus();
             this.enableDocumentSettings();
             this.bindGlobalListeners();
@@ -154,6 +156,8 @@ export default {
         },
         onLeave() {
             this.$emit('hide');
+            DomHandler.focus(this.target);
+            this.target = null;
             this.focusableClose = null;
             this.focusableMax = null;
         },
